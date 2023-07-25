@@ -1,0 +1,93 @@
+const asyncHandler = require("express-async-handler");
+const slugify = require("slugify");
+const ApiError = require("../utils/apiError");
+const ProductModel = require("../models/productModel");
+const ApiFeatures = require("../utils/apiFeatures");
+
+
+exports.deleteOne = (model) => asyncHandler(async (req , res , next) => {
+
+  const {id} = req.params;
+const document = await model.findByIdAndDelete({_id : id});
+
+if (!document) {
+  return next(new ApiError(`not found item for id ${id}` , 404))
+}
+
+res.status(204).send();
+
+});
+
+
+exports.updateOne = (model) => asyncHandler(async (req , res , next) => {
+
+  if ( model === ProductModel ) {
+    if (req.body.title) {
+      req.body.slug = slugify(req.body.title)
+    }
+    } else {
+
+
+      if (req.body.name) {
+        req.body.slug = slugify(req.body.name)
+      }
+    }
+    const document = await model.findByIdAndUpdate(req.params.id, req.body ,   {new : true});
+  
+    if (!document) {
+       return next(new ApiError(`not found item for id ${req.params.id}` , 404))
+     }
+  
+     res.status(201).json({data : document})
+  
+  
+  });
+  
+  
+
+  exports.createOne = (model) => asyncHandler(async (req , res) => {
+
+    if ( model === ProductModel ) {  
+        req.body.slug = slugify(req.body.title)
+      } else {
+          req.body.slug = slugify(req.body.name)
+        
+      }
+
+      const document  = await model.create(req.body);
+      res.status(201).json({data : document});
+  
+  });
+  
+
+  exports.getOneById = (model) =>   asyncHandler( async (req , res , next) => {
+
+    const {id} = req.params;
+    const document = await model.findById(id);
+    if (!document)
+    {
+    return  next(new ApiError(`not found item for id ${req.params.id}` , 404))
+    
+    }  
+    res.status(200).json({ data : document});
+    
+    
+    })
+    
+
+
+    exports.getAll = (model , modelName) => asyncHandler( async (req , res) => {
+
+      let filter = {};
+      if (req.filterObject) {
+        filter = req.filterObject
+      }
+      const countDocuments = await model.countDocuments();
+      const apifeatures = new ApiFeatures( model.find(filter) , req.query).filter().sort().
+      limitField().search(modelName).pagination(countDocuments)
+    
+    const {mongooseQuery , paginationResult} = apifeatures;
+    const document = await mongooseQuery; 
+    res.status(200).json({results : document.length ,paginationResult ,  data : document});
+    
+    })
