@@ -37,13 +37,15 @@ res.status(201).json({data : user , token});
 })
 
 
+
+
+
 /**
  * @desc    login
  * @route   /api/v1/auth/login
  * @method  POST
  * @access  public
  */
-
 exports.loginUser = asyncHandler(async (req , res , next) => {
 // check if the email and password is in the body (validation layer)
 // check if user is exist and the password is correct 
@@ -57,4 +59,22 @@ const token = createToken(user._id)
 // send response to client
 
 res.status(200).json({data : user , token} )
+})
+
+
+
+exports.protect = asyncHandler((req , res , next) => {
+  // Check if token exist, if exist getg
+  let token 
+  if (req.headers.authorization && req.headers.authorization.startsWith("Bearer"))
+  {
+    token = req.headers.authorization.split(" ")[1];
+  }
+  if (!token)
+  {
+    return next(new ApiError("You are not login, Please login to get access this route" , 401));
+  }
+    // Verify token (no change happens, expired token)
+    //  Check if user exists
+    //  Check if user change his password after token created
 })
