@@ -24,9 +24,13 @@ const userSchema = new Mongoose.Schema({
     required : [true , "password is required"],
     minlength : [6 , "password must be at least 6 characters" ]
   }, 
+  passwordChangedAt : Date,
+  passwordRestCode : String,
+  passwordRestCodeExpires : Date,
+  passwordRestverified : Boolean,
   role : {
     type : String,
-    enum :  ["user" , "admin"],
+    enum :  ["user" , "manger" , "admin"],
     default : "user"
   },
   active : {

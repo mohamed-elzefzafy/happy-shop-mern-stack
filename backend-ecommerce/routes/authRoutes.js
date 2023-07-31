@@ -1,13 +1,14 @@
 const express = require('express');
 const { registerValidator, loginValidator } = require('../utils/validator/authValidator');
-const { registerUser, loginUser } = require('../controllers/authController');
+const { registerUser, loginUser, forgotPassword } = require('../controllers/authController');
 const router = express.Router();
 
 
 
 
-router.route("/register").post(registerValidator , registerUser);
-router.route("/login").post(loginValidator , loginUser);
+router.post("/register",registerValidator , registerUser);
+router.post("/login" , loginValidator , loginUser);
+router.post("/forgotpassword" , forgotPassword);
 
 
 

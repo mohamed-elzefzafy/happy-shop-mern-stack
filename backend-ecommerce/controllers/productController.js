@@ -63,7 +63,7 @@ exports.getProducts = factory.getAll(ProductModel , "ProductModel");
  * @desc    create product
  * @route   /api/v1/products
  * @method  POST
- * @access  private
+ * @access  private /Admin - Manger
  */
 
 exports.createProduct = factory.createOne(ProductModel);
@@ -82,7 +82,7 @@ exports.getOneProduct = factory.getOneById(ProductModel)
  * @desc    update product
  * @route   /api/v1/products/:id
  * @method  PUT
- * @access  private
+ * @access  private /Admin - Manger
  */
 
 exports.updateProduct = factory.updateOne(ProductModel)
@@ -92,7 +92,7 @@ exports.updateProduct = factory.updateOne(ProductModel)
  * @desc    update product
  * @route   /api/v1/products/:id
  * @method  DELETE
- * @access  private
+ * @access  private /Admin
  */
 
 exports.deleteProduct = factory.deleteOne(ProductModel);

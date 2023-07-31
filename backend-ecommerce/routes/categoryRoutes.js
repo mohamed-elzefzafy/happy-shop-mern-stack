@@ -6,7 +6,7 @@ const { getCategories, createCategory, getOneCategy, updateCategory,
 const { getCategoryValidator, createCategoryValidator,
    updateCategoryValidator, deleteCategoryValidator } = require('../utils/validator/categoryValidator');
 const subCategoryRoute = require("./subCategoryRoutes");
-const { protect } = require('../controllers/authController');
+const { protect, allowedTo } = require('../controllers/authController');
 const router = express.Router();
 
 
@@ -15,11 +15,11 @@ router.use("/:categoryId/subcategories" , subCategoryRoute);
 
 
 
-router.route("/").get(getCategories).post( protect , uploadCategoryImage ,resizeImageCategory , createCategoryValidator ,  createCategory);
+router.route("/").get(getCategories).post( protect , allowedTo("admin" , "manger" ) , uploadCategoryImage ,resizeImageCategory , createCategoryValidator ,  createCategory);
 router.route("/:id")
 .get(getCategoryValidator, getOneCategy)
-.put(uploadCategoryImage,  resizeImageCategory, updateCategoryValidator , updateCategory)
-.delete(deleteCategoryValidator,deleteCategory);
+.put( protect , allowedTo("admin" , "manger" ) , uploadCategoryImage,  resizeImageCategory, updateCategoryValidator , updateCategory)
+.delete(protect , allowedTo("admin") , deleteCategoryValidator,deleteCategory);
 
 
 

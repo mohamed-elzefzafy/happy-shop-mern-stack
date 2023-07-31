@@ -1,3 +1,4 @@
+const crypto = require("crypto");
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -63,8 +64,10 @@ res.status(200).json({data : user , token} )
 
 
 
-exports.protect = asyncHandler((req , res , next) => {
-  // Check if token exist, if exist getg
+
+//@desc    make sure that user is logged in
+exports.protect = asyncHandler( async(req , res , next) => {
+  //1- Check if token exist, if exist getg
   let token 
   if (req.headers.authorization && req.headers.authorization.startsWith("Bearer"))
   {
@@ -74,7 +77,91 @@ exports.protect = asyncHandler((req , res , next) => {
   {
     return next(new ApiError("You are not login, Please login to get access this route" , 401));
   }
-    // Verify token (no change happens, expired token)
-    //  Check if user exists
-    //  Check if user change his password after token created
+    //2- Verify token (no change happens, expired token)
+    const decoded = jwt.verify(token , process.env.JWT_SECRET_KEY)
+    // console.log(decoded);
+    //3-  Check if user exists
+    const currentUser = await UserModel.findById(decoded.userId);
+    if (!currentUser) {
+      return next(new ApiError("The user that belong to this token does no longer exist" , 401))
+    }
+    //4-  Check if user change his password after token created
+    if (currentUser.passwordChangedAt) {
+      const passChangedTimeStamp = parseInt(currentUser.passwordChangedAt.getTime() / 1000 , 10)
+      console.log(passChangedTimeStamp, decoded.iat);
+      //password changed after create token
+      if (passChangedTimeStamp > decoded.iat)
+      {
+        return next(new ApiError("user recently changed his password please login again" , 401))
+      }
+    }
+
+    req.user = currentUser;
+    next();
 })
+
+
+
+// @desc    Authorization (User Permissions)
+// ["admin", "manager"]
+exports.allowedTo = (...roles) => (asyncHandler(async (req , res , next) => {
+    // 1) access roles
+  // 2) access registered user (req.user.role)
+  if (!roles.includes(req.user.role)) {
+ return next(new ApiError("You are not allowed, to get access this route" , 403));
+  }
+
+next();
+})) 
+
+
+/**
+ * @desc    Forgot password
+ * @route   /api/v1/auth/forgotpassword
+ * @method  POST
+ * @access  public
+ */
+exports.forgotPassword = asyncHandler(async (req , res , next) => {
+  // 1) Get user by email
+  const user = await UserModel.findOne({email : req.body.email})
+  if (!user) {
+    return next(new ApiError(`There is no user with that email${req.body.email}` , 404));
+  }
+  // 2) If user exist, Generate hash reset random 6 digits and save it in db
+  const resetCode =  Math.floor(100000 + Math.random() * 900000).toString();
+  const hashResetCode = crypto.createHash("sha256").update(resetCode).digest("hex");  
+  // Save hashed password reset code into db
+    user.passwordRestCode = hashResetCode;
+    console.log(user.passwordRestCode);
+      // Add expiration time for password reset code (10 min)
+      user.passwordRestCodeExpires = Date.now() + 10 * 60 * 1000;
+      user.passwordRestverified = false;
+
+    await  user.save();
+  // 3) Send the reset code via email
+})
+
+
+
+
+
+
+
+
+
+
+// all comments  
+
+
+
+// @desc    Verify password reset code
+// @route   POST /api/v1/auth/verifyResetCode
+// @access  Public
+// exports.verifyPassResetCode ddddddddddddddddddddddddddddddd
+  // 1) Get user based on reset code
+  // 2) Reset code valid
+
+// exports.resetPassword 
+  // 1) Get user based on email
+  // 2) Check if reset code verified
+  // 3) if everything is ok, generate token

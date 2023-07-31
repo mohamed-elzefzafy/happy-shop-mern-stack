@@ -35,7 +35,7 @@ req.body.profileImage = fileName;
  * @desc    get list of Users
  * @route   /api/v1/users
  * @method  GET
- * @access  private
+ * @access  private /Admin - Manger
  */
 exports.getUsers =  factory.getAll(UserModel);
 
@@ -44,7 +44,7 @@ exports.getUsers =  factory.getAll(UserModel);
  * @desc    get specific User by id
  * @route   /api/v1/users/:id
  * @method  GET
- * @access  private
+ * @access  private /Admin
  */
 exports.getOneUser = factory.getOneById(UserModel)
 
@@ -53,7 +53,7 @@ exports.getOneUser = factory.getOneById(UserModel)
  * @desc    create User
  * @route   /api/v1/users
  * @method  POST
- * @access  private
+ * @access  private  /Admin
  */
 
 
@@ -65,7 +65,7 @@ exports.createUser = factory.createOne(UserModel)
  * @desc    update User
  * @route   /api/v1/users/:id
  * @method  PUT everything exept password
- * @access  private
+ * @access  private /Admin
  */
 
 
@@ -101,7 +101,7 @@ exports.updateUser = asyncHandler(async (req , res , next) => {
  * @desc    update User
  * @route   /api/v1/users/changepassword/:id
  * @method  PUT  password only
- * @access  private
+ * @access  private 
  */
 
 
@@ -109,7 +109,8 @@ exports.updateUserPassword = asyncHandler(async (req , res , next) => {
 
 
 const document = await UserModel.findByIdAndUpdate(req.params.id, {
-  password : await bcrypt.hash(req.body.password , 12)
+  password : await bcrypt.hash(req.body.password , 12),
+  passwordChangedAt : Date.now()
 } ,   {new : true});
 
 
@@ -127,7 +128,7 @@ res.status(201).json({data : document})
  * @desc    Delete User
  * @route   /api/v1/users/:id
  * @method  DELETE
- * @access  private
+ * @access  private /Admin
  */
 
 

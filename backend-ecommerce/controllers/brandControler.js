@@ -48,7 +48,7 @@ exports.getOneBrand = factory.getOneById(BrandModel)
  * @desc    create Brand
  * @route   /api/v1/brands
  * @method  POST
- * @access  private
+ * @access  private /Admin - Manger
  */
 
 
@@ -60,7 +60,7 @@ exports.createBrand = factory.createOne(BrandModel)
  * @desc    update Brand
  * @route   /api/v1/brands/:id
  * @method  PUT
- * @access  private
+ * @access  private /Admin - Manger
  */
 
 
@@ -71,7 +71,7 @@ exports.updateBrand = factory.updateOne(BrandModel)
  * @desc    Delete brand
  * @route   /api/v1/brands/:id
  * @method  DELETE
- * @access  private
+ * @access  private /Admin 
  */
 
 
