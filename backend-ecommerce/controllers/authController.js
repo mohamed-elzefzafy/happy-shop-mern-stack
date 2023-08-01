@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const ApiError = require("../utils/apiError");
 const UserModel = require("../models/userModel");
+const sendEmail = require("../utils/sendEmail");
 
 
 
@@ -130,15 +131,33 @@ exports.forgotPassword = asyncHandler(async (req , res , next) => {
   // 2) If user exist, Generate hash reset random 6 digits and save it in db
   const resetCode =  Math.floor(100000 + Math.random() * 900000).toString();
   const hashResetCode = crypto.createHash("sha256").update(resetCode).digest("hex");  
+
   // Save hashed password reset code into db
     user.passwordRestCode = hashResetCode;
     console.log(user.passwordRestCode);
+
       // Add expiration time for password reset code (10 min)
       user.passwordRestCodeExpires = Date.now() + 10 * 60 * 1000;
       user.passwordRestverified = false;
 
     await  user.save();
-  // 3) Send the reset code via email
+  // 3) Send the reset code via email 
+  const message = `Hi ${user.name},\n We received a request to reset the password on your Happy-shop Account.
+   \n ${resetCode} \n Enter this code to complete the reset. \n Thanks for helping us keep your account secure.
+   \n The Happy-shop Team`;
+
+   try {
+    await  sendEmail({email : user.email , subject :"Your password reset code (valid for 10 min)" ,  message})
+   } catch (error) {
+    user.passwordRestCode = undefined;
+    user.passwordRestCodeExpires = undefined;
+    user.passwordRestverified = undefined;
+    await user.save();
+    return next(new ApiError("There is an error in sending email" , 500))
+   }
+
+ res.status(200).json({statue : "success" , message : "resetcode has been sent to your email"})
+
 })
 
 
