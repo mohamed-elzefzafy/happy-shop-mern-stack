@@ -162,6 +162,78 @@ exports.forgotPassword = asyncHandler(async (req , res , next) => {
 
 
 
+/**
+ * @desc    verify Rest Code
+ * @route   /api/v1/auth/verifyrestcode
+ * @method  POST
+ * @access  public
+ */
+exports.verifyRestCode = asyncHandler(async (req , res , next) => {
+  // 1) Get user based on email
+  const hashResetCode = crypto.createHash("sha256").update(req.body.resetCode).digest("hex");
+  const user = await UserModel.findOne({passwordRestCode : hashResetCode ,
+    passwordRestCodeExpires : {$gt : Date.now() }})
+    if (!user) {
+      return next( new ApiError("resetCode invalid or expired"));
+    }
+
+  // 2) Check if reset code verified
+  user.passwordRestverified = true;
+  // user.password = req.body.resetCode
+  await user.save();
+  res.status(200).json({
+    status : "success"
+  })
+  // 3) if everything is ok, generate token
+}
+)
+
+
+/**
+ * @desc    Reset password
+ * @route   /api/v1/auth/resetpassword
+ * @method  POST
+ * @access  public
+ */
+exports.resetPassword = asyncHandler(async (req , res , next) => {
+    // 1) Get user based on email
+const user = await UserModel.findOne({email : req.body.email});
+if (!user) {
+  return next( new ApiError(`there is no user for this email ${req.body.email}` , 404));
+}
+
+  // 2) Check if reset code verified
+if (!user.passwordRestverified) {
+  return next( new ApiError(`reset code not verified` , 400));
+}
+
+user.password   = req.body.newpassword
+
+user.passwordRestCode = undefined;
+user.passwordRestCodeExpires = undefined;
+user.passwordRestverified = undefined;
+
+await user.save();
+  // 3) if everything is ok, generate token
+
+  const token = createToken(user._id)
+res.status(200).json({token});
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -181,6 +253,4 @@ exports.forgotPassword = asyncHandler(async (req , res , next) => {
   // 2) Reset code valid
 
 // exports.resetPassword 
-  // 1) Get user based on email
-  // 2) Check if reset code verified
-  // 3) if everything is ok, generate token
+
