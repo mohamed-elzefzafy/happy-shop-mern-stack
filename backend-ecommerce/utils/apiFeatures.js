@@ -1,4 +1,3 @@
-
 class ApiFeatures {
   constructor(mongooseQuery , queryString ) {
   this.mongooseQuery = mongooseQuery;
@@ -40,7 +39,6 @@ class ApiFeatures {
 
  const fields = this.queryString.fields.split(",").join(" ");
 
- console.log(fields);
 this.mongooseQuery =  this.mongooseQuery.select(fields);
 
   
@@ -55,11 +53,15 @@ return this;
 if(this.queryString.keyword)
 {
   const query = {};
-  if (modelName === "ProductModel")
+  if (modelName === "ProductModel" )
   {
     query.$or = [
       {title : {$regex : this.queryString.keyword , $options : "i"} },
       {description : {$regex : this.queryString.keyword , $options : "i"} },
+    ]
+  } else if (modelName === "reviewModel") {
+    query.$or = [
+      {title : {$regex : this.queryString.keyword , $options : "i"} }
     ]
   } else {
     query.$or = [

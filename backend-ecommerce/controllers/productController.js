@@ -75,7 +75,7 @@ exports.createProduct = factory.createOne(ProductModel);
  * @access  public
  */
 
-exports.getOneProduct = factory.getOneById(ProductModel)
+exports.getOneProduct = factory.getOneById(ProductModel , "Reviews")
 
 
 /**

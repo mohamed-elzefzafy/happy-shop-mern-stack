@@ -9,7 +9,7 @@ exports.getBrandValidator = [
 
 exports.createBrandValidator = [
   check("name").notEmpty().withMessage("Brand required")
-  .isLength({min : 3}).withMessage("too short")
+  .isLength({min : 3}).withMessage("too short Brand name")
   .isLength({max : 32}).withMessage("too long Brand name")
   .custom((name) => 
   BrandModel.findOne({name: name}).then((Name) => {

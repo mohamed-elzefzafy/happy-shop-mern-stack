@@ -66,7 +66,17 @@ const productSchema = new mongoose.Schema({
     type : Number,
     default : 0
   }
-},{timestamps : true})
+},{timestamps : true ,
+// to enable virtual populate
+toJSON : {virtuals : true} ,
+toObject : {virtuals : true }})
+
+
+productSchema.virtual("Reviews", {
+  ref : "Review" ,
+  foreignField : "product" ,
+  localField : "_id"
+})
 
 
 productSchema.pre(/^find/ , function (next) {
@@ -103,6 +113,7 @@ setImageUrl(doc)
 productSchema.post("save" , (doc)=> {
   setImageUrl(doc)
   })
+
 
 
 

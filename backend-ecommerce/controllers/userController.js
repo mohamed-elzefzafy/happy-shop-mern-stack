@@ -8,7 +8,7 @@ const factory = require("./handlerFactory");
 const { uploadSingleImage } = require("../middlewares/uploadImageMiddleWare");
 const UserModel = require("../models/userModel");
 const ApiError = require("../utils/apiError");
-
+const createToken = require("../utils/createToken");
 
 
 
@@ -44,7 +44,7 @@ exports.getUsers =  factory.getAll(UserModel);
  * @desc    get specific User by id
  * @route   /api/v1/users/:id
  * @method  GET
- * @access  private /Admin
+ * @access  private /Admin - Manger
  */
 exports.getOneUser = factory.getOneById(UserModel)
 
@@ -53,7 +53,7 @@ exports.getOneUser = factory.getOneById(UserModel)
  * @desc    create User
  * @route   /api/v1/users
  * @method  POST
- * @access  private  /Admin
+ * @access  private  /Admin - Manger
  */
 
 
@@ -65,9 +65,8 @@ exports.createUser = factory.createOne(UserModel)
  * @desc    update User
  * @route   /api/v1/users/:id
  * @method  PUT everything exept password
- * @access  private /Admin
+ * @access  private /Admin - Manger
  */
-
 
 exports.updateUser = asyncHandler(async (req , res , next) => {
 
@@ -128,8 +127,85 @@ res.status(201).json({data : document})
  * @desc    Delete User
  * @route   /api/v1/users/:id
  * @method  DELETE
- * @access  private /Admin
+ * @access  private /Admin - Manger
  */
-
-
 exports.deleteUser = factory.deleteOne(UserModel)
+
+
+/**
+ * @desc    Get Logged User Data
+ * @route   /api/v1/users/getme
+ * @method  GET
+ * @access  private protect
+ */
+exports.getLoggedUserData = asyncHandler(async (req , res , next) => {
+  req.params.id = req.user._id
+  next();
+} )
+
+
+/**
+ * @desc    Update Logged User Password
+ * @route   /api/v1/users/changemypassword 
+ * @method  PUT
+ * @access  private protect
+ */
+exports.updateLoggedUserPassword = asyncHandler(async(req , res , next) => {
+  // 1- update user password based on uaer payload (req.user._id)
+  const user = await UserModel.findByIdAndUpdate(req.user._id, {
+    password : await bcrypt.hash(req.body.password , 12),
+    passwordChangedAt : Date.now()
+  } ,   {new : true});
+
+  //2- generate token
+  const token = createToken(user._id)
+  res.status(200).json({data : user , token});
+  
+} )
+
+
+
+/**
+ * @desc    Update Logged User data without (Password , role) 
+ * @route   /api/v1/users/updateme
+ * @method  PUT
+ * @access  private protect
+ */
+exports.updateLoggedUserData = asyncHandler(async (req , res , next) => {
+  const user = await UserModel.findByIdAndUpdate(req.user._id , {
+    name : req.body.name ,
+    email : req.body.email ,
+    phone : req.body.phone
+  } , {new : true});
+
+  res.status(200).json({data : user });
+
+
+})
+
+
+/**
+ * @desc    delete Logged User 
+ * @route   /api/v1/users/deleteme
+ * @method  DELETE
+ * @access  private protect
+ */
+exports.deleteLoggedUserData = asyncHandler(async (req , res , next) => {
+ await UserModel.findByIdAndUpdate(req.user._id , {active : false});
+
+  res.status(204).json({ststus : "succes"});
+})
+
+
+/**
+ * @desc    active Logged User 
+ * @route   /api/v1/users/activeme
+ * @method  PUT
+ * @access  private protect
+ */
+exports.reactiveLoggedUserData = asyncHandler(async (req , res , next) => {
+const user =  await UserModel.findByIdAndUpdate(req.user._id , {active : true} , {new : true});
+ 
+   res.status(201).json({data : user});
+ })
+ 

@@ -3,6 +3,7 @@ const slugify = require("slugify");
 const ApiError = require("../utils/apiError");
 const ProductModel = require("../models/productModel");
 const ApiFeatures = require("../utils/apiFeatures");
+const reviewModel = require("../models/reviewModel");
 
 
 exports.deleteOne = (model) => asyncHandler(async (req , res , next) => {
@@ -47,9 +48,12 @@ exports.updateOne = (model) => asyncHandler(async (req , res , next) => {
 
   exports.createOne = (model) => asyncHandler(async (req , res) => {
 
-    if ( model === ProductModel ) {  
+    if ( model === ProductModel  ) {  
         req.body.slug = slugify(req.body.title)
-      } else {
+      } else if (model === reviewModel ) {
+            req.body.slug = undefined
+      }
+       else {
           req.body.slug = slugify(req.body.name)
         
       }
@@ -60,10 +64,17 @@ exports.updateOne = (model) => asyncHandler(async (req , res , next) => {
   });
   
 
-  exports.getOneById = (model) =>   asyncHandler( async (req , res , next) => {
+  exports.getOneById = (model , populationOptions) =>   asyncHandler( async (req , res , next) => {
 
     const {id} = req.params;
-    const document = await model.findById(id);
+    // 1 - build query 
+    let query = model.findById(id);
+    if (populationOptions) {
+      query = query.populate(populationOptions);
+    }
+      // 2 - excute query 
+      const document = await query;
+
     if (!document)
     {
     return  next(new ApiError(`not found item for id ${req.params.id}` , 404))

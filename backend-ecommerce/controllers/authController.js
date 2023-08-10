@@ -5,15 +5,7 @@ const bcrypt = require("bcryptjs");
 const ApiError = require("../utils/apiError");
 const UserModel = require("../models/userModel");
 const sendEmail = require("../utils/sendEmail");
-
-
-
-const createToken = (payLoad) => jwt.sign({userId : payLoad} , process.env.JWT_SECRET_KEY ,
-   {expiresIn : process.env.JWT_EXPIRE_TIME})
-
-
-
-
+const createToken = require("../utils/createToken");
 
 
 /**
@@ -96,10 +88,55 @@ exports.protect = asyncHandler( async(req , res , next) => {
         return next(new ApiError("user recently changed his password please login again" , 401))
       }
     }
+    if (currentUser.active === false) {
+      return next(new ApiError("your account is not active please active your account first" , 401)) 
+    }
 
     req.user = currentUser;
     next();
 })
+
+
+
+
+
+//@desc    this for only the user who had make his active = false to help him to make his acount active = true again
+exports.protectForUserWithUnactiveAccount = asyncHandler( async(req , res , next) => {
+  //1- Check if token exist, if exist getg
+  let token 
+  if (req.headers.authorization && req.headers.authorization.startsWith("Bearer"))
+  {
+    token = req.headers.authorization.split(" ")[1];
+  }
+  if (!token)
+  {
+    return next(new ApiError("You are not login, Please login to get access this route" , 401));
+  }
+    //2- Verify token (no change happens, expired token)
+    const decoded = jwt.verify(token , process.env.JWT_SECRET_KEY)
+    // console.log(decoded);
+    //3-  Check if user exists
+    const currentUser = await UserModel.findById(decoded.userId);
+    if (!currentUser) {
+      return next(new ApiError("The user that belong to this token does no longer exist" , 401))
+    }
+    //4-  Check if user change his password after token created
+    if (currentUser.passwordChangedAt) {
+      const passChangedTimeStamp = parseInt(currentUser.passwordChangedAt.getTime() / 1000 , 10)
+      console.log(passChangedTimeStamp, decoded.iat);
+      //password changed after create token
+      if (passChangedTimeStamp > decoded.iat)
+      {
+        return next(new ApiError("user recently changed his password please login again" , 401))
+      }
+    }
+  
+    req.user = currentUser;
+    next();
+})
+
+
+
 
 
 

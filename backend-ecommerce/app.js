@@ -10,6 +10,7 @@ const brandRoute = require("./routes/brandRoutes");
 const productRoute = require("./routes/productRoute");
 const userRoute = require("./routes/userRoutes");
 const authRoute = require("./routes/authRoutes");
+const reviewRoute = require("./routes/reviewRoutes");
 const ApiError = require("./utils/apiError");
 const globalError = require("./middlewares/erroeMiddleware");
 
@@ -38,6 +39,7 @@ app.use("/api/v1/brands" , brandRoute);
 app.use("/api/v1/products" , productRoute);
 app.use("/api/v1/users" , userRoute);
 app.use("/api/v1/auth" , authRoute);
+app.use("/api/v1/reviews" , reviewRoute);
 
 
 app.all("*" , (req , res , next) => {
@@ -46,7 +48,7 @@ app.all("*" , (req , res , next) => {
   next(new ApiError(`can't find this route ${req.originalUrl}` , 400));
 })
 
-//global error handling middleware
+//global error handling middleware for express  
 
 app.use(globalError)
 
