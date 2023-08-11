@@ -21,17 +21,9 @@ exports.createSubCategory = factory.createOne(SubCategoryModel);
 
 
 
-
-
-/**
- * @desc    get list of subCategory
- * @route   /api/v1/subcategories
- * @method  GET
- * @access  public
- */
-    // nested route (GET)
-
-exports.createFilterObj = (req , res , next) => {
+// nested route (GET)
+// GET /api/v1/categories/:categoryId/subcategories
+exports.createFilterObjCategory = (req , res , next) => {
   let filterObject = {};
   if(req.params.categoryId)
   {
@@ -41,6 +33,14 @@ exports.createFilterObj = (req , res , next) => {
 
   next();
 }
+
+
+/**
+ * @desc    get list of subCategory
+ * @route   /api/v1/subcategories
+ * @method  GET
+ * @access  public
+ */
 exports.getSubCategories = factory.getAll(SubCategoryModel);
 
 /**

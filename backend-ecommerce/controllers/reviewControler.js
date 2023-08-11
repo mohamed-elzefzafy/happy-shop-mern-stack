@@ -5,6 +5,19 @@ const reviewModel = require("../models/reviewModel");
 
 
 
+// nested route (GET)
+// GET /api/v1/products/:productId/reviews
+    exports.createFilterObjectProduct  =  (req , res , next) => {
+      let filterObject = {};
+      if (req.params.productId) {
+        filterObject = {product : req.params.productId};
+        req.filterObject = filterObject;
+      }
+
+      next();
+    }
+
+
 
 /**
  * @desc    get list of review
@@ -24,14 +37,19 @@ exports.getReviews =  factory.getAll(reviewModel , "reviewModel");
 exports.getOneReview = factory.getOneById(reviewModel)
 
 
+
+exports.setProductIdAndUserIdToBody = (req , res , next) => {
+  if (!req.body.product) req.body.product = req.params.productId;
+  if (!req.body.user) req.body.user = req.user._id;
+  next();
+}
+
 /**
  * @desc    create review
  * @route   /api/v1/reviews
  * @method  POST
  * @access  private /Protect / user
  */
-
-
 exports.createReview = factory.createOne(reviewModel)
 
 
