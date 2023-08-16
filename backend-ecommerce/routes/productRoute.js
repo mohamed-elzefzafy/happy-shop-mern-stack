@@ -6,7 +6,7 @@ const reviewRouter = require("./reviewRoutes")
 const router = express.Router();
 
 
-// mergeParams: Allow us to access parameters on other routers
+
 // Nested route
 router.use("/:productId/reviews" , reviewRouter)
 

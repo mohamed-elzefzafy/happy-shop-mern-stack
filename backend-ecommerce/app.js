@@ -11,6 +11,8 @@ const productRoute = require("./routes/productRoute");
 const userRoute = require("./routes/userRoutes");
 const authRoute = require("./routes/authRoutes");
 const reviewRoute = require("./routes/reviewRoutes");
+const wishListRoute = require("./routes/wishListRoute")
+const addressRoute = require("./routes/addressRoute")
 const ApiError = require("./utils/apiError");
 const globalError = require("./middlewares/erroeMiddleware");
 
@@ -40,6 +42,8 @@ app.use("/api/v1/products" , productRoute);
 app.use("/api/v1/users" , userRoute);
 app.use("/api/v1/auth" , authRoute);
 app.use("/api/v1/reviews" , reviewRoute);
+app.use("/api/v1/wishlist" , wishListRoute);
+app.use("/api/v1/addresses" , addressRoute);
 
 
 app.all("*" , (req , res , next) => {

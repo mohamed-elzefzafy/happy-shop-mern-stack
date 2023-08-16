@@ -36,7 +36,23 @@ const userSchema = new Mongoose.Schema({
   active : {
     type : Boolean,
     default : true,
-  }
+  },
+  // child refrence (one to many)
+  wishList : [
+    {type : Mongoose.Schema.ObjectId ,
+     ref : "Product"
+    }
+  ],
+  addresses : [
+    {
+      id : {type : Mongoose.Schema.Types.ObjectId} ,
+      alias : String ,
+      details : String , 
+      phone : String ,
+      city : String ,
+      postalCode : String
+    }
+  ]
 } , {timestamps : true});
 
 

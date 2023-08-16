@@ -15,6 +15,12 @@ if (!document) {
   return next(new ApiError(`not found item for id ${id}` , 404))
 }
 
+
+
+// trigger "remove" event when delete document
+document.remove();
+
+
 res.status(204).send();
 
 });
@@ -38,6 +44,9 @@ exports.updateOne = (model) => asyncHandler(async (req , res , next) => {
     if (!document) {
        return next(new ApiError(`not found item for id ${req.params.id}` , 404))
      }
+  
+     // trigger "save" event when update document
+     document.save();
   
      res.status(201).json({data : document})
   

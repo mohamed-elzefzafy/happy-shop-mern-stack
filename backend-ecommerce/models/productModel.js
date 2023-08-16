@@ -120,7 +120,6 @@ productSchema.post("save" , (doc)=> {
 
 
 
-
 const ProductModel = mongoose.model("Product" , productSchema);
 
 module.exports = ProductModel;

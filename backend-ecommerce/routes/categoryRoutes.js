@@ -9,7 +9,7 @@ const subCategoryRoute = require("./subCategoryRoutes");
 const { protect, allowedTo } = require('../controllers/authController');
 const router = express.Router();
 
-// mergeParams: Allow us to access parameters on other routers
+
 // Nested route
 router.use("/:categoryId/subcategories" , subCategoryRoute);
 
