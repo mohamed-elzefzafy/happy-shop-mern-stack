@@ -4,17 +4,9 @@ const app = express();
 require("dotenv").config({path : "config.env"})
 const morgan = require("morgan");
 const dbConnection = require("./config/database");
-const categoryRoute = require("./routes/categoryRoutes");
-const subCategoryRoute = require("./routes/subCategoryRoutes");
-const brandRoute = require("./routes/brandRoutes");
-const productRoute = require("./routes/productRoute");
-const userRoute = require("./routes/userRoutes");
-const authRoute = require("./routes/authRoutes");
-const reviewRoute = require("./routes/reviewRoutes");
-const wishListRoute = require("./routes/wishListRoute")
-const addressRoute = require("./routes/addressRoute")
 const ApiError = require("./utils/apiError");
 const globalError = require("./middlewares/erroeMiddleware");
+const mountRoutes = require("./routes/IndexMountRoute");
 
 
   // connect with db 
@@ -34,16 +26,7 @@ if (process.env.NODE_ENV === "development")
 
 
 // mount routes
-
-app.use("/api/v1/categories" , categoryRoute)
-app.use("/api/v1/subcategories" , subCategoryRoute);
-app.use("/api/v1/brands" , brandRoute);
-app.use("/api/v1/products" , productRoute);
-app.use("/api/v1/users" , userRoute);
-app.use("/api/v1/auth" , authRoute);
-app.use("/api/v1/reviews" , reviewRoute);
-app.use("/api/v1/wishlist" , wishListRoute);
-app.use("/api/v1/addresses" , addressRoute);
+mountRoutes(app);
 
 
 app.all("*" , (req , res , next) => {
