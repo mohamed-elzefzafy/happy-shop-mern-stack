@@ -1,9 +1,9 @@
-const  Mongoose  = require("mongoose");
+const  mongoose  = require("mongoose");
 const ProductModel = require("./productModel");
 
-const reviewSchema = new Mongoose.Schema({
+const reviewSchema = new mongoose.Schema({
   title : {
-    type : "string",
+    type : String,
   },
   ratings : {
     type : Number,
@@ -12,13 +12,13 @@ const reviewSchema = new Mongoose.Schema({
     required :[true , "review rating required"]
   } , 
   user : {
-    type : Mongoose.Schema.ObjectId,
+    type : mongoose.Schema.ObjectId,
     ref : "User" ,
     required : [true , "review must be belong to user"]
   },
     // parent refrence (one to many)
   product : {
-    type : Mongoose.Schema.ObjectId,
+    type : mongoose.Schema.ObjectId,
     ref : "Product",
     required : [true , "review must be belong to product"]
   }
@@ -65,6 +65,6 @@ reviewSchema.post("remove" ,async function () {
 })
 
 
-const reviewModel = Mongoose.model("Review" , reviewSchema);
+const reviewModel = mongoose.model("Review" , reviewSchema);
 
 module.exports = reviewModel;

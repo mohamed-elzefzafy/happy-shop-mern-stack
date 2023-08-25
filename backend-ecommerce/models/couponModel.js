@@ -1,6 +1,6 @@
-const  Mongoose  = require("mongoose");
+const  mongoose  = require("mongoose");
 
-const couponSchema = new Mongoose.Schema({
+const couponSchema = new mongoose.Schema({
 name : {
   type : String ,
   trim : true ,
@@ -18,6 +18,6 @@ discount : {
 }
 } , {timestamps : true})
 
-const CouponModel = Mongoose.model("Coupon" , couponSchema);
+const CouponModel = mongoose.model("Coupon" , couponSchema);
 
 module.exports = CouponModel;

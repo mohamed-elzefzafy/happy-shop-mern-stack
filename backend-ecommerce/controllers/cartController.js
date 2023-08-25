@@ -1,8 +1,8 @@
 const asyncHandler = require("express-async-handler");
-const CartModel = require("../models/cartModel");
 const ProductModel = require("../models/productModel");
 const ApiError = require("../utils/apiError");
 const CouponModel = require("../models/couponModel");
+const CartModel = require("../models/cartModel");
 
 
 
@@ -70,7 +70,7 @@ exports.addProductToCart = asyncHandler(async(req , res , next) => {
 
 exports.getLoggedUserCart = asyncHandler(async(req , res , next) => {
   // const user = await UserModel.findById(req.user._id);
-  const cart = await CartModel.findOne({user : req.user._id}).populate({path : "cartItems.product" , select : "title -category" });
+  const cart = await CartModel.findOne({user : req.user._id});
   if (!cart) {
  return next(new ApiError(`you dont have cart for this user id ${req.user._id}` , 404));
   }

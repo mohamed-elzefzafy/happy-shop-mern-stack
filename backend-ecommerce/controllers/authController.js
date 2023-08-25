@@ -278,16 +278,3 @@ res.status(200).json({token});
 
 
 
-// all comments  
-
-
-
-// @desc    Verify password reset code
-// @route   POST /api/v1/auth/verifyResetCode
-// @access  Public
-// exports.verifyPassResetCode ddddddddddddddddddddddddddddddd
-  // 1) Get user based on reset code
-  // 2) Reset code valid
-
-// exports.resetPassword 
-

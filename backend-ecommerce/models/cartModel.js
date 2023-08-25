@@ -1,11 +1,12 @@
-const  Mongoose  = require("mongoose");
+const mongoose  = require("mongoose");
 
 
-const cartSchema = new Mongoose.Schema({
+
+const cartSchema = new mongoose.Schema({
   cartItems : [
   {
     product : {
-      type : Mongoose.Schema.ObjectId , 
+      type : mongoose.Schema.ObjectId, 
       ref : "Product"
     },
     quantity : {
@@ -19,13 +20,24 @@ const cartSchema = new Mongoose.Schema({
   totalCartPrice : Number ,
   totalCartPriceAfterDiscount : Number ,
   user : {
-   type :  Mongoose.Schema.ObjectId ,
+   type :  mongoose.Schema.ObjectId ,
    ref : "User"
   }
  }, {timestamps : true} );
 
+ 
+cartSchema.pre(/^find/ , function (next) {
+  this.populate({
+    path : "cartItems.product" ,
+    select :  "title imageCover"
+  }).populate({
+    path : "user" , 
+    select : "name profileImage email phone"
+  });
+  next();
+})
 
-
- const CartModel =  Mongoose.model("Cart" , cartSchema);
+//  .populate({path : "cartItems.product" , select : "title -category" })
+ const CartModel =  mongoose.model("Cart" , cartSchema);
 
  module.exports = CartModel;

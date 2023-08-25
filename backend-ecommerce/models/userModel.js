@@ -1,7 +1,7 @@
-const  Mongoose  = require("mongoose");
+const  mongoose  = require("mongoose");
 const bcrypt = require("bcryptjs");
 
-const userSchema = new Mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name : {
     type : String,
     trim : true,
@@ -39,13 +39,13 @@ const userSchema = new Mongoose.Schema({
   },
   // child refrence (one to many)
   wishList : [
-    {type : Mongoose.Schema.ObjectId ,
+    {type : mongoose.Schema.ObjectId ,
      ref : "Product"
     }
   ],
   addresses : [
     {
-      id : {type : Mongoose.Schema.Types.ObjectId} ,
+      id : {type : mongoose.Schema.Types.ObjectId} ,
       alias : String ,
       details : String , 
       phone : String ,
@@ -82,7 +82,7 @@ userSchema.pre("save" , async function(next) {
 })
 
 
-const UserModel = Mongoose.model("User" , userSchema);
+const UserModel = mongoose.model("User" , userSchema);
 
 module.exports = UserModel;
 
