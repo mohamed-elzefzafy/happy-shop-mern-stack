@@ -1,6 +1,7 @@
 const path = require("path");
 const express = require("express");
-const app = express();
+const cors = require("cors");
+const compression = require("compression");
 require("dotenv").config({path : "config.env"})
 const morgan = require("morgan");
 const dbConnection = require("./config/database");
@@ -9,8 +10,18 @@ const globalError = require("./middlewares/erroeMiddleware");
 const mountRoutes = require("./routes/IndexMountRoute");
 
 
+
   // connect with db 
   dbConnection();
+// express app
+  const app = express();
+
+  // enable other domains accsess the application
+app.use(cors());
+app.options("*" , cors());
+
+// compress all responses
+app.use(compression());
 
 // middlewares 
 app.use(express.json());

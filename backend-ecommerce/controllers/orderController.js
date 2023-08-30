@@ -1,4 +1,5 @@
 const asyncHandler = require("express-async-handler");
+const stripe = require("stripe")(process.env.STRIPE_SECRET)
 const CartModel = require("../models/cartModel");
 const ApiError = require("../utils/apiError");
 const OrderModel = require("../models/orderModel");
@@ -69,3 +70,92 @@ exports.getAllOrders = factory.getAll(OrderModel);
  * @access  private /user Admin manger
  */
 exports.getOneOrder = factory.getOneById(OrderModel);
+
+/**
+ * @desc    update order paid status to paid 
+ * @route   /api/v1/orders/:id/pay
+ * @method  PUT
+ * @access  private /user Admin manger
+ */
+
+exports.updateOrderToPaid = asyncHandler(async(req , res , next) => {
+  const order = await OrderModel.findById(req.params.id);
+  if (!order) {
+    return next(new  ApiError(`there is no order for this id ${req.params.id}` , 404))
+  }
+
+  // update order paid details 
+order.isPaid = true;
+order.paidAt = Date.now();
+const updatedOrder = await order.save();
+  res.status(200).json({order : updatedOrder});
+})
+
+
+/**
+ * @desc    update order deliverd status  
+ * @route   /api/v1/orders/:id/deliver
+ * @method  PUT
+ * @access  private /user Admin manger
+ */
+
+exports.updateOrderToDeliverd = asyncHandler(async(req , res , next) => {
+  const order = await OrderModel.findById(req.params.id);
+  if (!order) {
+    return next(new  ApiError(`there is no order for this id ${req.params.id}` , 404))
+  }
+
+  // update order deliverd details
+order.isDelivered = true;
+order.deliveredAt = Date.now();
+const updatedOrder = await order.save();
+  res.status(200).json({order : updatedOrder});
+})
+
+/**
+ * @desc    get checkout session from stripe and send it as response 
+ * @route   /api/v1/orders/checkout-session/:cartId
+ * @method  GET
+ * @access  private /user 
+ */
+exports.checkOutSession = asyncHandler(async(req , res , next) => {
+     // app settings
+     const taxPrice = 0;
+     const shippingPrice = 0;
+  // 1- Get cart depend on cartId
+  const cart = await CartModel.findById(req.params.cartId);
+  if (!cart) {
+    return next(new ApiError(`there is no cart for this Id ${req.params.cartId}` , 404));
+  }
+  // 2- Get order price depend on cart price "Check if coupon apply"
+  const cartPrice = cart.totalCartPriceAfterDiscount?cart.totalCartPriceAfterDiscount : cart.totalCartPrice;
+const totalOrderPrice = cartPrice + taxPrice + shippingPrice;
+  // 3- Create stripe checkout session
+  
+  const session = await stripe.checkout.sessions.create({
+    line_items: [ 
+      { 
+        price_data: { 
+          currency: "egp", 
+          product_data: { 
+            name: req.user.name,
+          }, 
+          unit_amount: totalOrderPrice * 100, 
+        }, 
+        quantity: 1, 
+      }, 
+    ], 
+  mode: 'payment',
+    success_url: `${req.protocol}://${req.get("host")}/orders`,
+    cancel_url: `${req.protocol}://${req.get("host")}/cart`,
+    customer_email : req.user.email,
+    client_reference_id : req.params.cartId,
+    metadata :req.body.shippinAddress
+  })
+  // 4- send session to response
+
+  res.status(200).json({status :"success" , session})
+})
+
+
+
