@@ -16,7 +16,7 @@ const mountRoutes = require("./routes/IndexMountRoute");
 // express app
   const app = express();
 
-  // enable other domains accsess the application
+  // enable other domains accsess the app
 app.use(cors());
 app.options("*" , cors());
 
