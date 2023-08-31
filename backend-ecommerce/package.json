@@ -4,13 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start:d": "nodemon app.js",
+    "start:p": "NODE_ENV=production node index.js",
     "start" : "node index.js"
   },
   "keywords": [],
   "author": "",
-  "engines" : {
-    "node" : "18.16.0"
-  },
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
