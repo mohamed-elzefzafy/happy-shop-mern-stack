@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start:d": "nodemon index.js",
-    "start:p": "NODE_ENV=production node index.js",
-    "start" : "node index.js",
-    "build" : "npm i"
+    "start": "NODE_ENV=production node index.js",
+
   },
   "engines" : {
     "node" : "18.16.0"
