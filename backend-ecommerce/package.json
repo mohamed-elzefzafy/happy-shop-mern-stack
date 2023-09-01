@@ -8,8 +8,8 @@
     "start:d": "nodemon index.js",
     "start": "node index.js"
   },
-  "engines" : {
-    "node" : "18.16.0"
+  "engines": {
+    "node": "^18.16.0"
   },
   "keywords": [],
   "author": "",
