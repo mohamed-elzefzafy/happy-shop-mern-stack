@@ -6,7 +6,8 @@
   "scripts": {
     "start:d": "nodemon app.js",
     "start:p": "NODE_ENV=production node index.js",
-    "start" : "node index.js"
+    "start" : "node index.js",
+    "build" : "npm i"
   },
   "keywords": [],
   "author": "",
