@@ -6,7 +6,7 @@
   "scripts": {
     "build" : "npm install",
     "start:d": "nodemon index.js",
-    "start": "NODE_ENV=production node index.js"
+    "start": "node index.js"
   },
   "engines" : {
     "node" : "18.16.0"
