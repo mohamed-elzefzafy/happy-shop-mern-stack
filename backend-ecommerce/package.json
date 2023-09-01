@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build" : "npm install",
     "start:d": "nodemon index.js",
     "start": "NODE_ENV=production node index.js"
   },
