@@ -34,7 +34,9 @@ if (process.env.NODE_ENV === "development")
 }
 
 
-
+app.get("/" ,  (req, res) => {
+res.send("api is running....")
+})
 
 // mount routes
 mountRoutes(app);
