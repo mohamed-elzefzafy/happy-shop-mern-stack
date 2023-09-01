@@ -4,10 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:d": "nodemon app.js",
+    "start:d": "nodemon index.js",
     "start:p": "NODE_ENV=production node index.js",
     "start" : "node index.js",
     "build" : "npm i"
+  },
+  "engines" : {
+    "node" : "18.16.0"
   },
   "keywords": [],
   "author": "",
