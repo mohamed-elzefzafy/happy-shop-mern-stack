@@ -2,6 +2,7 @@ import { Container, FormControl, Nav, Navbar } from "react-bootstrap";
 import logo from "../../images/logo.png"
 import login from "../../images/login.png"
 import cart from "../../images/cart.png";
+import { Link } from "react-router-dom";
 
 
 const NavBarLogin = () => {
@@ -9,9 +10,11 @@ const NavBarLogin = () => {
     <Navbar className="sticky-top" bg="dark" variant="dark" expand="sm">
     <Container>
         <Navbar.Brand>
-            <a href='/'>
-                <img src={logo} className='logo' />
-            </a>
+          <Link to="/">
+          <img src={logo} className='logo' alt="Logo"/>
+          </Link>
+              
+          
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -25,7 +28,7 @@ const NavBarLogin = () => {
                 <Nav.Link href='/login'
                     className="nav-text d-flex mt-3 justify-content-center">
                     <img src={login} className="login-img" alt="sfvs" />
-                    <p style={{ color: "white" }}>دخول</p>
+                    <p style={{ color: "white" }}>دخول   </p>
                 </Nav.Link>
                 <Nav.Link href='/cart'
                     className="nav-text d-flex mt-3 justify-content-center"

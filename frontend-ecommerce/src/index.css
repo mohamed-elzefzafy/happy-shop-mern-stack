@@ -104,7 +104,7 @@ body {
 /* products card style */
 
 .card-title {
-  color: #555550;
+  color: #555550 !important;
   font-family: Almarai;
   font-size: 16px;
   letter-spacing: 0;
