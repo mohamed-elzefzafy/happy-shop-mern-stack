@@ -1,4 +1,4 @@
-import { GET_ALL_CATEGORY, GET_ERROR } from "../type";
+import { CREATE_CATEGORY, GET_ALL_CATEGORY, GET_ERROR } from "../type";
 
 const inital = {
   category : [] ,
@@ -13,6 +13,13 @@ case GET_ALL_CATEGORY :
     category : action.payload ,
     loading :false
     }
+
+    case CREATE_CATEGORY :
+  return {
+    category : action.payload ,
+    loading :false
+    }
+
     case GET_ERROR :
   return {
     ...state ,
