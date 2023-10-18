@@ -18,7 +18,7 @@ const LoginPage = () => {
                             type="password"
                             className="user-input text-center mx-auto"
                         />
-                        <button className="btn-login mx-auto mt-4">تسجيل الدخول</button>
+                        <button className="btn-login mx-auto mt-4 mastercolor">تسجيل الدخول</button>
                         <label className="mx-auto my-4">
                             ليس لديك حساب ؟{" "}
                             <Link to="/register" style={{textDecoration:'none'}}>

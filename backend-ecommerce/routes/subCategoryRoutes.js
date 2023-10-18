@@ -10,7 +10,7 @@ const router = express.Router({mergeParams : true});
 
 
 
-router.route("/").post(protect , allowedTo("admin" , "manger" ) , setCategoryIdToBody , createSubCategoryValidator, createSubCategory)
+router.route("/").post(/*protect , allowedTo("admin" , "manger" ) , */ setCategoryIdToBody , createSubCategoryValidator, createSubCategory)
 .get( createFilterObjCategory , getSubCategories);
 router.route("/:id").get(getSubCategoryValidator , getOneSubCategory )
 .put(protect , allowedTo("admin" , "manger" ) , updateSubCategoryValidator , updateSubCategory)

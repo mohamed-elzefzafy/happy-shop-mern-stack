@@ -1,18 +1,22 @@
 import { Row } from "react-bootstrap";
 import AdminAllProductsCard from "./AdminAllProductsCard";
-import Pagination from "../utilities/Pagination";
 
 
-const AdminAllProducts = () => {
+
+const AdminAllProducts = ({products}) => {
   return (
     <div >
     <div className="admin-content-text">إدارة جميع المنتجات</div>
     <Row className="justify-content-start">
-    <AdminAllProductsCard/>
-    <AdminAllProductsCard/>
-    <AdminAllProductsCard/>
-    <AdminAllProductsCard/>
-    <AdminAllProductsCard/>
+    {
+      products? (
+        products?.map((product , index) => 
+        <AdminAllProductsCard key={index} product={product}/>
+        )
+      ) :null
+    }
+  
+
     </Row>
 
     </div>

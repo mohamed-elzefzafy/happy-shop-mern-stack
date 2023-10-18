@@ -1,24 +1,27 @@
-import { Container, Row } from "react-bootstrap"
+import { Container, Row, Spinner } from "react-bootstrap"
 import SubTitleComp from "../utilities/SubTitleComp"
 import BrandCard from "./BrandCard"
-import brand1 from "../../images/brand1.png";
-import brand2 from "../../images/brand2.png"
-import brand3 from "../../images/brand3.png";
+import UseHomeBrandHook from "../../customHooks/brand/UseHomeBrandHook";
 
 
 const BrandFeatures = ({title , btntitle}) => {
+
+  const [loading , brand ] = UseHomeBrandHook();
   return (
     <Container>
-    <SubTitleComp title={title} btntitle={btntitle} pathText="/allbrand" />
-    <Row className='my-1 d-flex justify-content-between'>
-        <BrandCard img={brand1} />
-        <BrandCard img={brand2} />
-        <BrandCard img={brand3} />
-        <BrandCard img={brand2} />
-        <BrandCard img={brand1} />
-        <BrandCard img={brand3} />
 
+        <SubTitleComp title={title} btntitle={btntitle} pathText="/allbrand" />
+    <Row className='my-1 d-flex justify-content-between'>
+        
+        {
+    !loading ? (  brand?.data ? brand?.data?.slice(0 , 6).map((brand , index) => 
+    
+                   <BrandCard img={brand.image} key={index}/>
+      ) : <h4>لا يوجد ماركات</h4>   ) : <Spinner animation="border" variant="primary" />
+    }
     </Row>
+  
+
 </Container>
   )
 }

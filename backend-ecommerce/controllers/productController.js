@@ -19,7 +19,7 @@ if (req.files.imageCover)
 {
   //image processing for imageCover
   const imageCoverfileName = `product-${uuidv4()}-${Date.now()}-cover.jpeg`;
-  await  sharp(req.files.imageCover[0].buffer).resize(2000 , 1333)
+  await  sharp(req.files.imageCover[0].buffer).resize(600 , 600)
  .toFormat("jpeg").jpeg({quality : 90})
  .toFile(`uploads/products/${imageCoverfileName}`);
 
@@ -34,7 +34,7 @@ if (req.files.images)
  req.body.images = []
 await Promise.all(  req.files.images.map(async (image , index) => {
   const imagefileName = `product-${uuidv4()}-${Date.now()}-${index + 1}.jpeg`;
-await  sharp(image.buffer).resize(2000 , 1333)
+await  sharp(image.buffer).resize(600 , 600)
 .toFormat("jpeg").jpeg({quality : 90})
 .toFile(`uploads/products/${imagefileName}`);
 

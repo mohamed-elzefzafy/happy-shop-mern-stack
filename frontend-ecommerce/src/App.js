@@ -22,6 +22,7 @@ import UserAllAdressesPage from './pages/user/UserAllAdressesPage';
 import UserAddAdressPage from './pages/user/UserAddAdressPage';
 import UserEditAdressPage from './pages/user/UserEditAdressPage';
 import UserProfilePage from './pages/user/UserProfilePage';
+import AdminEditProductPage from './pages/admin/AdminEditProductPage';
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
        {path : "/allbrand" , element : <AllBrandsPage/>},
        {path : "/products" , element : <ShopProductPage/>},
        {path : "/products/:id" , element : <ProductDetailsPage/>},
+       {path : "/admin/editproduct/:id" , element : <AdminEditProductPage/>},
        {path : "/cart" , element : <CartPage/>},
        {path : "/order/paymentmethod" , element : <ChoosePayMethoudPage/>},
        {path : "/admin/allproducts" , element : <AdminAllProductsPage/>},

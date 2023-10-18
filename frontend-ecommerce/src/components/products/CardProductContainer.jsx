@@ -3,15 +3,22 @@ import SubTitleComp from "../utilities/SubTitleComp";
 import ProductCard from "./ProductCard";
 
 
-const CardProductContainer = ({title , btntitle , pathText}) => {
+const CardProductContainer = ({ products ,title , btntitle , pathText}) => {
   return (
     <Container>
-      <SubTitleComp title={title} btntitle={btntitle} pathText={pathText}/>  
-    <Row className="d-flex my-2 justify-content-center">
-<ProductCard />
-<ProductCard />
-<ProductCard />
-<ProductCard />
+    {products ?  <SubTitleComp title={title} btntitle={btntitle} pathText={pathText}/>  : null} 
+    <Row className="d-flex my-2 justify-content-start">
+
+    
+    {
+    products? (
+      products.map((product , index) => 
+      <ProductCard key={index} product={product}/>
+      )
+    ): null
+    }
+
+
     </Row>
   </Container>
   )

@@ -1,63 +1,83 @@
 import Multiselect from "multiselect-react-dropdown";
 import { Col, Row } from "react-bootstrap";
-import avatar from "../../images/avatar.png";
 import add from "../../images/add.png";
+import MultiImageInput from "react-multiple-image-input";
+import { ToastContainer } from "react-toastify";
+import { CompactPicker } from "react-color";
+import UseAddProductHook from "../../customHooks/product/UseAddProductHook";
 
 
 
 
 const AdminAddProduct = () => {
 
-const onSelect = ()=> {
-
-}
-
-const onRemove = ()=> {
-  
-}
-
-const options = [
-  { name: "التصنيف الاول", id: 1 },
-  { name: "التصنيف الثاني", id: 2 },
-];
+  const [images ,prodName ,CatID , prodDescription,priceBefore , priceAftr,qty ,category,options , BrandID ,brand,colors,showColor,
+    colorBoxShow,onSelect , onRemove, onSelectBrand, removeColor,handleChangeComplete,handleSubmit,
+   setImages , setProdName , setProdDescription , setPriceBefore , setPriceAftr , setQty , onSelectCategory]
+    = UseAddProductHook();
 
   return (
     <div>
+  
     <Row className="justify-content-start ">
+    <ToastContainer/>
         <div className="admin-content-text pb-4"> اضافه منتج جديد</div>
         <Col sm="8">
             <div className="text-form pb-2"> صور للمنتج</div>
-            <img src={avatar} alt="" height="100px" width="120px" />
+
+<MultiImageInput
+                        images={images}
+                        setImages={setImages}
+                        theme={"light"}
+                        allowCrop={false}
+                        max={4}
+                    />
+
+
             <input
+              value={prodName}
+              onChange={(e)=> setProdName(e.target.value)}
                 type="text"
                 className="input-form d-block mt-3 px-3"
                 placeholder="اسم المنتج"
             />
             <textarea
+              value={prodDescription}
+              onChange={(e)=> setProdDescription(e.target.value)}
                 className="input-form-area p-2 mt-3"
                 rows="4"
                 cols="50"
                 placeholder="وصف المنتج"
             />
             <input
+            value={priceBefore}
+              onChange={(e)=> setPriceBefore(e.target.value)}
                 type="number"
                 className="input-form d-block mt-3 px-3"
                 placeholder="السعر قبل الخصم"
             />
             <input
+            value={priceAftr}
+              onChange={(e)=> setPriceAftr(e.target.value)}
                 type="number"
                 className="input-form d-block mt-3 px-3"
-                placeholder="سعر المنتج"
+                placeholder='السعر بعد الخصم'
             />
-            <select
-                name="languages"
-                id="lang"
-                className="select input-form-area mt-3 px-2 ">
-                <option value="val">التصنيف الرئيسي</option>
-                <option value="val">التصنيف الاول</option>
-                <option value="val2">التصنيف الثاني</option>
-                <option value="val2">التصنيف الثالث</option>
-                <option value="val2">التصنيف الرابع</option>
+      <input
+      value={qty}
+              onChange={(e)=> setQty(e.target.value)}
+                type="number"
+                className="input-form d-block mt-3 px-3"
+                placeholder="الكميه المتاحه"
+            />
+
+<select name="category" id="cat" className="select input-form-area mt-3 px-2" value={CatID?._id} onChange={onSelectCategory}>
+            <option value="0">إختر تصنيف رئيسى </option>
+            {
+          category.data ? (    category.data.map((category , index) =>
+              <option value={category._id} key={index}> {category.name}</option>
+              )) : null
+            }
             </select>
 
             <Multiselect
@@ -69,33 +89,38 @@ const options = [
                 displayValue="name"
                 style={{ color: "red" }}
             />
-            <select
-                name="brand"
-                id="brand"
-                className="select input-form-area mt-3 px-2 ">
-                <option value="val">الماركة</option>
-                <option value="val2">التصنيف الماركة الاولي</option>
-                <option value="val2">التصنيف الماركة الثانيه</option>
-                <option value="val2">التصنيف الرابع</option>
+
+
+
+
+<select name="category" id="cat" className="select input-form-area mt-3 px-2 " value={BrandID} onChange={onSelectBrand}>
+<option value="0">إختر ماركه </option>
+            {
+          brand.data ? (    brand.data.map((brand , index) =>
+              <option value={brand._id} key={index}> {brand.name}</option>
+              )) : null
+            }
             </select>
             <div className="text-form mt-3 "> الالوان المتاحه للمنتج</div>
             <div className="mt-1 d-flex">
-                <div
+              {
+                colors.length > 0 ? (
+                  colors.map((color, index) => <div
                     className="color ms-2 border  mt-1"
-                    style={{ backgroundColor: "#E52C2C" }}></div>
-                <div
-                    className="color ms-2 border mt-1 "
-                    style={{ backgroundColor: "white" }}></div>
-                <div
-                    className="color ms-2 border  mt-1"
-                    style={{ backgroundColor: "black" }}></div>
-                <img src={add} alt="" width="30px" height="35px" className="" />
+                    key={index}
+                    onClick={()=> removeColor(color)}
+                    style={{ backgroundColor: color }}></div>
+                   )) : null}
+                <img onClick={colorBoxShow} src={add} alt="" width="30px" height="35px" className="" style={{cursor : "pointer"}}/>
+              <div style={{opacity : showColor ? "1" : "0"}}>
+                  <CompactPicker onChangeComplete={handleChangeComplete}/>
+              </div>
             </div>
         </Col>
     </Row>
     <Row>
         <Col sm="8" className="d-flex justify-content-end ">
-            <button className="btn-save d-inline mt-2 ">حفظ التعديلات</button>
+            <button onClick={handleSubmit} className="btn-save d-inline mt-2 ">حفظ التعديلات</button>
         </Col>
     </Row>
 </div>

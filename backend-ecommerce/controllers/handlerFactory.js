@@ -6,6 +6,28 @@ const ApiFeatures = require("../utils/apiFeatures");
 const reviewModel = require("../models/reviewModel");
 
 
+const setImageUrl = (doc) => {
+  if (doc.imageCover) {
+    const imageUrl =  `${process.env.BASE_URL}/products/${doc.imageCover}`;
+    doc.imageCover = imageUrl;
+  }
+  if (doc.images) {
+    const imagesList = []; 
+    doc.images.forEach((image) => {
+      const imageUrl =  `${process.env.BASE_URL}/products/${image}`;
+      imagesList.push(imageUrl);
+    })
+    doc.images = imagesList;
+    
+  }
+}
+
+
+
+
+
+
+
 exports.deleteOne = (model) => asyncHandler(async (req , res , next) => {
 
   const {id} = req.params;
@@ -46,9 +68,14 @@ exports.updateOne = (model) => asyncHandler(async (req , res , next) => {
      }
   
      // trigger "save" event when update document
-     document.save();
+     const doc = await document.save();
   
-     res.status(201).json({data : document})
+
+    if (model === ProductModel ) {
+      setImageUrl(doc);
+    }
+
+     res.status(201).json({data : doc})
   
   
   });
@@ -68,10 +95,24 @@ exports.updateOne = (model) => asyncHandler(async (req , res , next) => {
       }
 
       const document  = await model.create(req.body);
+
+      if (model === ProductModel ) {
+        setImageUrl(document);
+      }
+
+
+      if (model === ProductModel ) {
+        setImageUrl(document);
+      }
+  
       res.status(201).json({data : document});
   
   });
   
+
+
+
+
 
   exports.getOneById = (model , populationOptions) =>   asyncHandler( async (req , res , next) => {
 
@@ -89,6 +130,11 @@ exports.updateOne = (model) => asyncHandler(async (req , res , next) => {
     return  next(new ApiError(`not found item for id ${req.params.id}` , 404))
     
     }  
+
+    if (model === ProductModel ) {
+      setImageUrl(document);
+    }
+
     res.status(200).json({ data : document});
     
     
@@ -108,6 +154,14 @@ exports.updateOne = (model) => asyncHandler(async (req , res , next) => {
     
     const {mongooseQuery , paginationResult} = apifeatures;
     const document = await mongooseQuery; 
+
+
+
+        if (model === ProductModel ) {
+          document.forEach((doc) => setImageUrl(doc));
+        }
+    
+
     res.status(200).json({results : document.length ,paginationResult ,  data : document});
     
     })

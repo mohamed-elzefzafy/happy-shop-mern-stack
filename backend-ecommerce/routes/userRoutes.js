@@ -17,7 +17,7 @@ router.delete("/deleteme"    , deleteLoggedUserData);
 
 
 // Admin - Manger
-router.use( allowedTo("admin" , "manger" ))
+// router.use( allowedTo("admin" , "manger" ))
 
 router.put("/changepassword/:id" , updateUserPasswordValidator , updateUserPassword )
 router.route("/").get( getUsers)

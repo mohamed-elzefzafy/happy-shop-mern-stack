@@ -1,6 +1,8 @@
 const {check } = require("express-validator");
 const validatorMiddleWare = require("../../middlewares/validatorMiddleWare");
 const SubCategoryModel = require("../../models/subCategoryModel");
+const CategoryModel = require("../../models/categoryModel");
+const { param } = require("../../routes/subCategoryRoutes");
 
 
 
@@ -27,11 +29,17 @@ exports.createSubCategoryValidator = [
 
    )
     ),
-  validatorMiddleWare ,
   check("category").notEmpty().withMessage("subCategory must be belong to parent Category")
-  .isMongoId().withMessage("Invalid Category id format"),
-  validatorMiddleWare
-];
+  .isMongoId().withMessage("Invalid Category id format")
+  .custom((categoryId) =>
+  CategoryModel.findById(categoryId).then((category) => {
+    if (!category) {
+    return Promise.reject( new Error(`No category for this id: ${categoryId}`))
+    }
+  })
+),
+  validatorMiddleWare,
+]
 
 exports.updateSubCategoryValidator = [
   check("id").isMongoId().withMessage("Invalid subcategory id format"),
@@ -40,6 +48,17 @@ exports.updateSubCategoryValidator = [
   .isLength({min : 2}).withMessage("too short")
   .isLength({max : 32}).withMessage("too long subcategory name")
   .optional() ,
+
+  check("category").optional()
+  .isMongoId().withMessage("Invalid Category id format")
+  .custom((categoryId) =>
+  CategoryModel.findById(categoryId).then((category) => {
+    if (!category) {
+    return Promise.reject( new Error(`No category for this id: ${categoryId}`))
+    }
+  })
+),
+
   validatorMiddleWare
 ];
 
@@ -47,3 +66,8 @@ exports.deleteSubCategoryValidator = [
   check("id").isMongoId().withMessage("Invalid subcategory id format"),
   validatorMiddleWare
 ];
+
+
+
+
+

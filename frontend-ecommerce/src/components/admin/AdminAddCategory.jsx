@@ -1,72 +1,46 @@
-import { Col, Row } from "react-bootstrap"
-import avatar from "../../images/avatar.png";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createCategory } from "../../redux/actions/categoryAction";
+import { Col, Row, Spinner } from "react-bootstrap"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import UseAddCategoryHook from "../../customHooks/category/UseAddCategoryHook";
+
+
 
 
 const AdminAddCategory = () => {
-const dispatch = useDispatch();
-  const [img, setImg] = useState(avatar);
-  const [name, setName] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
-
-
-  const onImageChange = (event) =>{
-    if(event.target.files && event.target.files[0] )
-    {
-      setImg(URL.createObjectURL(event.target.files[0]))
-      setSelectedFile(event.target.files[0]);
-    }
-    
-    
-    
-    }
-
-
-  // const  onChangeName = (event) => {
-    
-  //   }
-
-
-    const handleSubmit = (event) =>{
-      event.preventDefault();
-      const formData = new FormData();
-      formData.append("name" , name);
-      formData.append("image" , selectedFile);
-    
-    dispatch(createCategory( formData))
-    
-      }
-    
+const [img ,  name , loading, isPress ,  handleSubmit , onImageChange , onChangeName ] = UseAddCategoryHook();
 
 
   return (
     <div>
     <Row className="justify-content-start ">
+    <ToastContainer />
         <div className="admin-content-text pb-4">اضافه تصنيف جديد</div>
         <Col sm="8">
             <div className="text-form pb-2">صوره التصنيف</div>
           
-            <label for="upload-photo">
-                            <img
-                                src={img}
-                                alt="fzx"
-                                height="100px"
-                                width="120px"
-                                style={{ cursor: "pointer" }}
-                            />
-                        </label>
-
-                        <input
+          <div>
+              <label htmlFor="upload-photo">
+                              <img
+                                  src={img}
+                                  alt="fzx"
+                                  height="100px"
+                                  width="120px"
+                                  style={{ cursor: "pointer" }}
+                              />
+                          </label>
+                          <input
                             type="file"
                             name="photo"
                             onChange={onImageChange}
                             id="upload-photo"
                         />
 
+          </div>
+
+                  
+
 <input
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={onChangeName}
                         value={name}
                         type="text"
                         className="input-form d-block mt-3 px-3"
@@ -79,8 +53,13 @@ const dispatch = useDispatch();
             <button onClick={handleSubmit} className="btn-save d-inline mt-2 ">حفظ التعديلات</button>
         </Col>
     </Row>
+    {isPress  ? loading ? (<Spinner animation="border" variant="secondary" />) : (
+
+ <h4>تم الإنتهاء</h4>
+
+    ) : null}
 </div>
   )
 }
 
-export default AdminAddCategory
+export default AdminAddCategory;

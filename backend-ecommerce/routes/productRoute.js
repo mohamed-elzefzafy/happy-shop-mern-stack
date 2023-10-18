@@ -10,10 +10,10 @@ const router = express.Router();
 // Nested route
 router.use("/:productId/reviews" , reviewRouter)
 
-router.route("/").get(getProducts).post(protect , allowedTo("admin" , "manger" ) , updateProductImages , resizeImageProduct, createProductValidator , createProduct);
+router.route("/").get(getProducts).post(/*protect , allowedTo("admin" , "manger" ) ,*/ updateProductImages , resizeImageProduct, createProductValidator , createProduct);
 router.route("/:id").get(getProductValidator , getOneProduct)
-.put(protect , allowedTo("admin" , "manger" ) , updateProductImages , resizeImageProduct , updateProductValidator , updateProduct)
-.delete(protect , allowedTo("admin") , deleteProductValidator , deleteProduct);
+.put(/*protect , allowedTo("admin" , "manger" ) , */updateProductImages , resizeImageProduct , updateProductValidator , updateProduct)
+.delete(/*protect , allowedTo("admin") , */deleteProductValidator , deleteProduct);
 
 
 module.exports = router;

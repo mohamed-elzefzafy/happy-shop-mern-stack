@@ -22,8 +22,9 @@ exports.registerUser = asyncHandler(async (req , res) => {
     name : req.body.name,
     email : req.body.email,
     password :req.body.password,
+    phone : req.body.phone,
     // slug : req.body.slug,
-    // phone : req.body.phone,
+    
     // profileImage : req.body.profileImage,  
   })
 // 1-generate token 

@@ -3,11 +3,24 @@ import logo from "../../images/logo.png"
 import login from "../../images/login.png"
 import cart from "../../images/cart.png";
 import { Link } from "react-router-dom";
+import UseNavbarSearchHook from "../../customHooks/search/UseNavbarSearchHook";
 
 
 const NavBarLogin = () => {
+const [searchWord , onChangeSearch ] = UseNavbarSearchHook();
+
+// let word = "";
+// if (localStorage.getItem("searchWord") != null)
+// word = localStorage.getItem("searchWord")
+
+
+let word = "";
+if (searchWord != null)
+word = searchWord
+else
+word = ""
   return (
-    <Navbar className="sticky-top" bg="dark" variant="dark" expand="sm">
+    <Navbar className="sticky-top mastercolor" /* bg="dark" */ variant="dark"  expand="sm">
     <Container>
         <Navbar.Brand>
           <Link to="/">
@@ -19,10 +32,14 @@ const NavBarLogin = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
             <FormControl
-                type="search"
+              value={word}
+              onChange={(e) => onChangeSearch(e)}
+                type="search"ngeSea
                 placeholder="ابحث..."
                 className="me-2 w-100 text-center"
                 aria-label="Search"
+              
+              
             />
             <Nav className="me-auto">
                 <Nav.Link href='/login'

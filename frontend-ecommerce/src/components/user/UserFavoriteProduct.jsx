@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { Row } from 'react-bootstrap'
 import ProductCard from '../products/ProductCard'
 import Pagination from '../utilities/Pagination'
@@ -20,4 +20,4 @@ const UserFavoriteProduct = () => {
   )
 }
 
-export default UserFavoriteProduct
+export default UserFavoriteProduct;
