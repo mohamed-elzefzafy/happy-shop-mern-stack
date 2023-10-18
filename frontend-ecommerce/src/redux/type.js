@@ -13,4 +13,5 @@ export const GET_PRODUCT_LIKE = "GET_PRODUCT_LIKE";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const REGISTER = "REGISTER";
+export const LOGIN = "LOGIN";
 export const GET_ERROR = "GET_ERROR";

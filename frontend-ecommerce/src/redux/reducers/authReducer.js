@@ -1,9 +1,10 @@
 
-import { GET_ERROR, REGISTER } from "../type"
+import {  LOGIN, REGISTER } from "../type"
 
 
 const inital = {
   registerUser : [] ,
+  loginUser : [] ,
   loading : true
 }
 const authReducer = (state = inital, action) => {
@@ -13,14 +14,12 @@ case REGISTER :
   return {
     ...state ,
     registerUser : action.payload ,
-    loading :false
     }
-  //   case GET_ERROR :
-  // return {
-  //   ...state ,
-  //   registerUser : action.payload ,
-  //   loading :true
-  //   }
+    case LOGIN :
+      return {
+        ...state ,
+        loginUser : action.payload ,
+        }
 
   default :
   return state;  
