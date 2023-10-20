@@ -1,5 +1,5 @@
 import useDeleteData from "../../Hooks/useDeleteData";
-import useGetData from "../../Hooks/useGetData";
+import { useGetData } from "../../Hooks/useGetData";
 import { useInsertDataWithImage } from "../../Hooks/useInsertData";
 import  { useUpdateDataWithImage } from "../../Hooks/useUpdateData";
 import { CREATE_PRODUCT, DELETE_PRODUCT, GET_ALL_PRODUCTS, GET_ERROR, GET_ONE_PRODUCT, GET_PRODUCT_LIKE, UPDATE_PRODUCT } from "../type";

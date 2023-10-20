@@ -123,7 +123,7 @@ const AdminEditProduct = () => {
     </Row>
     <Row>
         <Col sm="8" className="d-flex justify-content-end ">
-            <button onClick={handleSubmit} className="btn-save d-inline mt-2 ">حفظ التعديلات</button>
+            <button onClick={handleSubmit} className="btn-save d-inline mt-2 mastercolor">حفظ التعديلات</button>
         </Col>
     </Row>
 </div>

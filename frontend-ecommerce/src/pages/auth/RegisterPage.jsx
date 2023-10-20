@@ -50,7 +50,7 @@ const [name ,email ,phone ,password , confirmPassword ,
               className="user-input text-center my-3 mx-auto"
             />
             <button onClick={onSubmit} className="btn-login mx-auto mt-4 mastercolor" >تسجيل الحساب</button>
-            <label className="mx-auto my-4">
+            <label className="mx-auto my-4 text-secondary fw-bold">
               لديك حساب بالفعل؟{" "}
               <Link to="/login" style={{ textDecoration: "none" }}>
                 <span style={{ cursor: "pointer" }} className="text-danger">

@@ -27,7 +27,7 @@ const UserAddAdress = () => {
     </Row>
     <Row>
         <Col sm="8" className="d-flex justify-content-end ">
-            <button className="btn-save d-inline mt-2 ">اضافة عنوان</button>
+            <button className="btn-save d-inline mt-2 mastercolor">اضافة عنوان</button>
         </Col>
     </Row>
 </div>

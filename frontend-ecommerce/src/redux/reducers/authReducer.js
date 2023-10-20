@@ -1,29 +1,47 @@
-
-import {  LOGIN, REGISTER } from "../type"
-
+import { FORGET_PASSWORD, GET_CURRENT_USER, LOGIN, REGISTER, VERIFY_RESET_PASSWORD } from "../type";
 
 const inital = {
-  registerUser : [] ,
-  loginUser : [] ,
-  loading : true
-}
+  registerUser: [],
+  loginUser: [],
+  currentUser: [],
+  forgetPassword: [],
+  verifyPassword: [],
+  loading: true,
+};
 const authReducer = (state = inital, action) => {
-switch (action.type)
- {
-case REGISTER :
-  return {
-    ...state ,
-    registerUser : action.payload ,
-    }
-    case LOGIN :
+  switch (action.type) {
+    case REGISTER:
       return {
-        ...state ,
-        loginUser : action.payload ,
-        }
+        ...state,
+        registerUser: action.payload,
+      };
+    case LOGIN:
+      return {
+        ...state,
+        loginUser: action.payload,
+      };
+    case GET_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: action.payload,
+      };
 
-  default :
-  return state;  
-}
-}
+    case FORGET_PASSWORD:
+      return {
+        ...state,
+        forgetPassword: action.payload,
+      };
+
+      case VERIFY_RESET_PASSWORD:
+        return {
+          ...state,
+          verifyPassword: action.payload,
+        };
+  
+
+    default:
+      return state;
+  }
+};
 
 export default authReducer;

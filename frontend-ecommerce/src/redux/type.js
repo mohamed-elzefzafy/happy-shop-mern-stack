@@ -14,4 +14,7 @@ export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const REGISTER = "REGISTER";
 export const LOGIN = "LOGIN";
+export const GET_CURRENT_USER = "GET_CURRENT_USER";
+export const FORGET_PASSWORD = "FORGET_PASSWORD";
+export const VERIFY_RESET_PASSWORD = "VERIFY_RESET_PASSWORD";
 export const GET_ERROR = "GET_ERROR";

@@ -29,7 +29,7 @@ const UserEditAdress = () => {
     </Row>
     <Row>
         <Col sm="8" className="d-flex justify-content-end ">
-            <button className="btn-save d-inline mt-2 ">حفظ تعديل العنوان</button>
+            <button className="btn-save d-inline mt-2 mastercolor">حفظ تعديل العنوان</button>
         </Col>
     </Row>
 </div>

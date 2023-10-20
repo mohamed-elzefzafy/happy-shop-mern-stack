@@ -13,7 +13,7 @@ const UserAllAdress = () => {
         <Row className="justify-content-center">
                 <Col sm="5" className="d-flex justify-content-center">
                     <Link to="/user/add-address" style={{ textDecoration: "none" }}>
-                        <button className="btn-add-address">اضافه عنوان جديد</button>
+                        <button className="btn-add-address mastercolor">اضافه عنوان جديد</button>
                     </Link>
                 </Col>
             </Row>

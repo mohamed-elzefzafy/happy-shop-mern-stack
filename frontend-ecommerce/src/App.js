@@ -23,6 +23,9 @@ import UserAddAdressPage from './pages/user/UserAddAdressPage';
 import UserEditAdressPage from './pages/user/UserEditAdressPage';
 import UserProfilePage from './pages/user/UserProfilePage';
 import AdminEditProductPage from './pages/admin/AdminEditProductPage';
+import ForgetPasswordPage from './pages/auth/ForgetPasswordPage';
+import VerifyPasswordPage from './pages/auth/VerifyPasswordPage';
+import ResetPassword from './pages/auth/ResetPassword';
 
 function App() {
 
@@ -53,9 +56,12 @@ function App() {
        {path : "/user/add-address" , element : <UserAddAdressPage/>},
        {path : "/user/edit-address" , element : <UserEditAdressPage/>},
        {path : "/user/profile" , element : <UserProfilePage/>},
+       {path : "/forgetpassword" , element : <ForgetPasswordPage/>},
+       {path : "/verifycode" , element :<VerifyPasswordPage/> },
+       {path : "/resetpassword" , element :<ResetPassword/> },
       ] 
     }])
-  
+    
   return (
     <div className="font">
     <RouterProvider router={router}/>

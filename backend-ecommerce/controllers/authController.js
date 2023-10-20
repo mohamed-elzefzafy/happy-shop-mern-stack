@@ -173,7 +173,6 @@ exports.forgotPassword = asyncHandler(async (req , res , next) => {
 
   // Save hashed password reset code into db
     user.passwordRestCode = hashResetCode;
-    console.log(user.passwordRestCode);
 
       // Add expiration time for password reset code (10 min)
       user.passwordRestCodeExpires = Date.now() + 10 * 60 * 1000;

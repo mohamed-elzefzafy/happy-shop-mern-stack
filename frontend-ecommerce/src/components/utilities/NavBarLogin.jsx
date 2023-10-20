@@ -1,24 +1,58 @@
-import { Container, FormControl, Nav, Navbar } from "react-bootstrap";
+import { Container, FormControl, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import logo from "../../images/logo.png"
 import login from "../../images/login.png"
 import cart from "../../images/cart.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UseNavbarSearchHook from "../../customHooks/search/UseNavbarSearchHook";
+import { useEffect, useState } from "react";
+import { getLoggedUser } from "../../redux/actions/authAction";
+import { useDispatch, useSelector } from "react-redux";
+import UseGetLoggedUserData from "../../customHooks/auth/UseGetLoggedUserData";
 
 
 const NavBarLogin = () => {
 const [searchWord , onChangeSearch ] = UseNavbarSearchHook();
+const navigate = useNavigate();
+// const [user, setUser] = useState("");
+// const dispatch = useDispatch();
 
-// let word = "";
-// if (localStorage.getItem("searchWord") != null)
-// word = localStorage.getItem("searchWord")
-
+const [userData] = UseGetLoggedUserData();
 
 let word = "";
 if (searchWord != null)
 word = searchWord
 else
 word = ""
+
+
+
+// useEffect(() => {
+//   if (localStorage.getItem("user") !=  null) 
+//   {
+//     setUser(JSON.parse(localStorage.getItem("user")).name)
+//   }
+// },[user])
+const logOut = () => {
+  localStorage.removeItem("token");
+
+  // localStorage.removeItem("user");
+  // setUser("");
+}
+
+// const getUserData = async () => {
+// await dispatch(getLoggedUser());
+// }
+// useEffect(() => {
+// getUserData();
+// setUser(res?.data?.name);
+// },[user])
+
+// const res = useSelector((state) =>  state.auth.currentUser)
+// if (res)
+// console.log(res?.data?.name);
+
+console.log(userData);
+
   return (
     <Navbar className="sticky-top mastercolor" /* bg="dark" */ variant="dark"  expand="sm">
     <Container>
@@ -42,15 +76,25 @@ word = ""
               
             />
             <Nav className="me-auto">
-                <Nav.Link href='/login'
+            
+            {
+              userData?.name ? ( 
+               <NavDropdown title={userData?.name} id="collapsible-nav-dropdown" >
+              <NavDropdown.Item href="/user/profile">الصفحه الشخصيه</NavDropdown.Item>
+              <NavDropdown.Divider/>
+              <NavDropdown.Item onClick={logOut} href="/">تسجيل الخروج</NavDropdown.Item>
+            </NavDropdown> 
+                )
+                 : (    <Nav.Link href='/login'
                     className="nav-text d-flex mt-3 justify-content-center">
-                    <img src={login} className="login-img" alt="sfvs" />
+                    <img src={login} className="login-img ms-1" alt="sfvs"/>
                     <p style={{ color: "white" }}>دخول   </p>
-                </Nav.Link>
+                </Nav.Link>)
+            }
                 <Nav.Link href='/cart'
                     className="nav-text d-flex mt-3 justify-content-center"
                     style={{ color: "white" }}>
-                    <img src={cart} className="login-img" alt="sfvs" />
+                    <img src={cart} className="login-img ms-1" alt="sfvs" />
                     <p style={{ color: "white" }}>العربه</p>
                 </Nav.Link>
             </Nav>

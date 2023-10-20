@@ -55,7 +55,7 @@ const UserProfile = () => {
 
         <Row>
             <Col xs="10" sm="8" md="6" className="d-flex justify-content-end ">
-                <button className="btn-save d-inline mt-2 ">حفظ كلمة السر</button>
+                <button className="btn-save d-inline mt-2 mastercolor ">حفظ كلمة السر</button>
             </Col>
         </Row>
     </div>
