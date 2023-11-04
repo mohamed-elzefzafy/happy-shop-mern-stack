@@ -6,7 +6,7 @@ const router = express.Router();
 
 
 
-router.post("/register",registerValidator , registerUser);
+router.post("/register", registerValidator , registerUser);
 router.post("/login" , loginValidator , loginUser);
 router.post("/forgotpassword" , forgotPassword);
 router.post("/verifyrestcode" , verifyRestCode);

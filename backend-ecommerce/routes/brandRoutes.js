@@ -9,7 +9,7 @@ const router = express.Router();
 
 
 
-router.route("/").get(getBrands).post(/*protect , allowedTo("admin" , "manger" ) , */uploadBrandImage , resizeImageBrand , createBrandValidator ,  createBrand);
+router.route("/").get(getBrands).post(protect , allowedTo("admin" , "manger" ) , uploadBrandImage , resizeImageBrand , createBrandValidator ,  createBrand);
 router.route("/:id")
 .get(getBrandValidator, getOneBrand)
 .put(protect , allowedTo("admin" , "manger" ) , uploadBrandImage , resizeImageBrand ,updateBrandValidator , updateBrand)

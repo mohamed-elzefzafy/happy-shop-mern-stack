@@ -35,6 +35,9 @@ word = ""
 const logOut = () => {
   localStorage.removeItem("token");
 
+  // setTimeout(() => {
+  //   window.location.href = "/login";
+  // }, 500);
   // localStorage.removeItem("user");
   // setUser("");
 }
@@ -54,7 +57,7 @@ const logOut = () => {
 console.log(userData);
 
   return (
-    <Navbar className="sticky-top mastercolor" /* bg="dark" */ variant="dark"  expand="sm">
+    <Navbar className="sticky-top mastercolor nav-property" /* bg="dark" */ variant="dark"  expand="sm">
     <Container>
         <Navbar.Brand>
           <Link to="/">
@@ -68,10 +71,11 @@ console.log(userData);
             <FormControl
               value={word}
               onChange={(e) => onChangeSearch(e)}
-                type="search"ngeSea
+                type="search"
                 placeholder="ابحث..."
-                className="me-2 w-100 text-center"
+                className="me-4 ms-0 text-center "
                 aria-label="Search"
+                style={{width : "75%"}}
               
               
             />
@@ -79,11 +83,26 @@ console.log(userData);
             
             {
               userData?.name ? ( 
-               <NavDropdown title={userData?.name} id="collapsible-nav-dropdown" >
-              <NavDropdown.Item href="/user/profile">الصفحه الشخصيه</NavDropdown.Item>
+          <>
+          <NavDropdown title={userData?.name +  (userData?.role === "admin" ? " - " + "(Admin)" : "")} id="collapsible-nav-dropdown" className="justify-content-center" 
+          
+          style={{padding : "0"}}>
+              {userData?.role === "admin" ? (
+                <NavDropdown.Item href="/admin/allproducts">لوحة التحكم</NavDropdown.Item>
+              ) : (
+                
+                <NavDropdown.Item href="/user/profile">الصفحه الشخصيه</NavDropdown.Item>
+              )}
               <NavDropdown.Divider/>
-              <NavDropdown.Item onClick={logOut} href="/">تسجيل الخروج</NavDropdown.Item>
+              <NavDropdown.Item onClick={logOut} href="/login">تسجيل الخروج</NavDropdown.Item>
             </NavDropdown> 
+            <Nav.Link href='/user/profile'  
+      
+                    style={{ color: "white" , marginTop :"13px", marginRight : "0" , marginLeft : "10px"}}>
+                    <img src={userData?.profileImage} className="" alt="sfvs" style={{width : "30px" , height : "30px" , borderRadius :"50%"}} />
+                    {/* <p style={{ color: "white" }}>{userData?.name}</p> */}
+                </Nav.Link>
+          </>
                 )
                  : (    <Nav.Link href='/login'
                     className="nav-text d-flex mt-3 justify-content-center">
@@ -91,6 +110,10 @@ console.log(userData);
                     <p style={{ color: "white" }}>دخول   </p>
                 </Nav.Link>)
             }
+
+            
+
+
                 <Nav.Link href='/cart'
                     className="nav-text d-flex mt-3 justify-content-center"
                     style={{ color: "white" }}>
@@ -105,3 +128,5 @@ console.log(userData);
 }
 
 export default NavBarLogin;
+
+

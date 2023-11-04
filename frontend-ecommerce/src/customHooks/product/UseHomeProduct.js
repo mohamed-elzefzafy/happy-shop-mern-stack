@@ -20,9 +20,9 @@ const UseHomeProductHome = () => {
   const allProducts = useSelector((state) => state.allProduct.allProducts)
 
   let items =[];
-  if(allProducts.data)
+  if(allProducts?.data)
   {
-    items = allProducts.data.slice(0 , 4);
+    items = allProducts?.data?.slice(0 , 4);
   } else {
     items = [];
   }

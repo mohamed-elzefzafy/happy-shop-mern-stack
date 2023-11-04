@@ -1,6 +1,8 @@
 import { Col, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import UseProductDetailHook from "../../customHooks/product/UseProductDetailHook";
+import rateIMG from "../../images/rate.png";
+
 
 const ProductText = () => {
   const {id} = useParams();
@@ -13,14 +15,19 @@ const ProductText = () => {
     </Row>
     <Row>
       <Col md="8">
-        <div className="cat-title d-inline">
+        <div className="cat-text d-inline fs-5">
       {item?.title}
-      <div className="cat-rate d-inline mx-3">{item?.ratingsQuantity} </div>
+  
         </div>
+      <div>
+      <div className="cat-rate d-inline ">{item?.ratingsAverage} </div>
+        <img className="" src={rateIMG} alt="" height="16px" width="16px" />
+      </div>
       </Col>
+    >
     </Row>
     <Row>
-      <Col md="8" className="mt-4">
+      <Col md="8" className="mt-2">
         <div className="cat-text d-inline">الماركة :</div>
         <div className="barnd-text d-inline mx-1">{brand?.name} </div>
       </Col>
@@ -58,7 +65,7 @@ item.colors? (
     <Row className="mt-4">
       <Col md="12">
         <div className="product-price d-inline px-3 py-3 border">{item?.price} جنية</div>
-        <div className="product-cart-add px-3 py-3 d-inline mx-3">اضف للعربة</div>
+        <div className="product-cart-add px-3 py-3 d-inline mx-3 mastercolor">اضف للعربة</div>
       </Col>
     </Row>
   </div>

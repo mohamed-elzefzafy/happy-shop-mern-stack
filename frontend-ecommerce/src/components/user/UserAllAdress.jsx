@@ -1,14 +1,43 @@
 import { Col, Row } from "react-bootstrap";
 import UserAdressCard from "./UserAdressCard";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getAllAddresses } from "../../redux/actions/addressAction";
 
 
 const UserAllAdress = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getAdressesData = async() => {
+  await dispatch(getAllAddresses());
+    }
+    getAdressesData();
+
+  },[])
+
+  const res = useSelector((state) => state.address.allAddresses)
+
+  if (res)
+  console.log(res);
+let userAddresses =[];
+if (res?.data)
+{
+userAddresses = res?.data;
+} else {
+  userAddresses = [];
+}
   return (
     <div>
         <div className="admin-content-text pb-4">  دفتر العناوين </div>
-        <UserAdressCard/>
-        <UserAdressCard/>
+        {res?.data ? (
+          userAddresses.map((address , index) => 
+          <UserAdressCard address={address} key={index}/>
+          )
+        ) : null}
+    
+    
 
         <Row className="justify-content-center">
                 <Col sm="5" className="d-flex justify-content-center">

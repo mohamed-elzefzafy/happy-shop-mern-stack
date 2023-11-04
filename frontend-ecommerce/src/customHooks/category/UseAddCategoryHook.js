@@ -27,7 +27,7 @@ const UseAddCategoryHook = () => {
       setImg(URL.createObjectURL(event.target.files[0]))
       setSelectedFile(event.target.files[0]);
     }
-    console.log(img);
+
     }
 
 

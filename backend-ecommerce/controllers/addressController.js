@@ -15,7 +15,7 @@ exports.addAddress = asyncHandler(async (req , res , next) => {
     $addToSet : {addresses : req.body}
   } , {new : true})
 
-  res.status(200).json({status : "success" , message : "address added successfully to your addressess" , data : user.addresses})
+  res.status(201).json({status : "success" , message : "address added successfully to your addressess" , data : user.addresses})
 }  )
 
 

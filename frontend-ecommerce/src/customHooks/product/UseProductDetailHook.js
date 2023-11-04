@@ -29,13 +29,13 @@ const UseProductDetailHook = (id) => {
   }
 
 //view image
-let images;
+let Images;
 if(item?.images) {
  
-   images = item.images.map((image) =>{ return { original: image}}
+   Images = item.images.map((image) =>{ return { original: image}}
     )
 } else {
-  images =[
+  Images =[
     { original: `${avatar}`}
   ]
 }
@@ -76,7 +76,7 @@ if(likeProduct?.data) {
 
 
 
-  return [item , images , brand , likeProductArr]
+  return [item , Images , brand , likeProductArr]
 }
 
 export default UseProductDetailHook;

@@ -1,4 +1,6 @@
 const crypto = require("crypto");
+const {v4 : uuidv4} = require("uuid");
+const sharp = require("sharp");
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -7,6 +9,43 @@ const UserModel = require("../models/userModel");
 const sendEmail = require("../utils/sendEmail");
 const createToken = require("../utils/createToken");
 const { sanitizeUser } = require("../utils/sanatizeData");
+const { uploadSingleImage } = require("../middlewares/uploadImageMiddleWare");
+
+
+
+const setImageUrl = (doc) => {
+  if (doc.profileImage) {
+    const imageUrl =  `${process.env.BASE_URL}/Users/${doc.profileImage}`;
+    doc.profileImage = imageUrl;
+  }
+  if (doc.images) {
+    const imagesList = []; 
+    doc.images.forEach((image) => {
+      const imageUrl =  `${process.env.BASE_URL}/products/${image}`;
+      imagesList.push(imageUrl);
+    })
+    doc.images = imagesList;
+    
+  }
+}
+
+exports.uploadUserImage = uploadSingleImage("profileImage");
+
+exports.resizeImageUser = asyncHandler(async (req , res , next) => {
+  const fileName = `User-${uuidv4()}-${Date.now()}.jpeg`;
+if (req.file)
+{
+  await  sharp(req.file.buffer).resize(600 , 600)
+ .toFormat("jpeg").jpeg({quality : 90})
+ .toFile(`uploads/Users/${fileName}`);
+
+// save image to db
+req.body.profileImage = fileName;
+}
+ next();  
+
+}
+)
 
 
 /**
@@ -24,16 +63,14 @@ exports.registerUser = asyncHandler(async (req , res) => {
     password :req.body.password,
     phone : req.body.phone,
     // slug : req.body.slug,
-    
-    // profileImage : req.body.profileImage,  
+    profileImage : req.body.profileImage,  
   })
+  // user.save();
+  setImageUrl(user);
 // 1-generate token 
 const token = createToken(user._id)
 res.status(201).json({data : sanitizeUser(user) , token});
 })
-
-
-
 
 
 /**
@@ -255,7 +292,7 @@ await user.save();
   // 3) if everything is ok, generate token
 
   const token = createToken(user._id)
-res.status(200).json({token});
+res.status(200).json({status : "success" ,token});
 })
 
 

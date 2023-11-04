@@ -1,8 +1,8 @@
 :root {
-  --maincolor : #23105f ;
+  /* --maincolor : #23105f ; */
   /* --maincolor : #272727 ; */
+  --maincolor : #232F3E ;
 }
-
 body {
   margin: 0;
   font-family: "Almarai", sans-serif;
@@ -188,7 +188,7 @@ body {
   width: 100%;
 }
 .footer-shroot {
-  color: #979797;
+  color: #ffffffad;
   font-family: Almarai;
   font-size: 13px;
   font-weight: bold;
@@ -198,7 +198,7 @@ body {
 }
 
 .footer-phone {
-  color: #979797;
+  color: #ffffffad;
   font-family: "Almarai";
   font-size: 13px;
   font-weight: bold;
@@ -238,8 +238,8 @@ body {
 
 /* products details page */
 .product-gallary-card {
-  height: 470px !important;
-  width: 370px;
+  height: 250px !important;
+  width: 150px;
   border-radius: 29px;
   background-color: #ffffff;
 }
@@ -313,7 +313,7 @@ body {
 .product-cart-add {
   cursor: pointer;
   text-align: center;
-  height: 45px;
+  height: 40px;
   border-radius: 9px;
   border: none;
   background-color: #272727;
@@ -590,6 +590,8 @@ body {
   letter-spacing: 0;
   line-height: 19px;
   text-align: right;
+  margin-right: 20px;
+  margin-top: 5px;
 }
 /* end rate */
 
@@ -695,6 +697,7 @@ body {
 }
 .dropdown-divider {
   background-color: #a8baff;
+  
 }
 
 .badge {
@@ -702,7 +705,39 @@ body {
 font-weight: bold !important;
 }
 
+
 .mastercolor {
   background-color: var(--maincolor) !important;
-  /* background-color: #272727 !important; */
+}
+
+.red {
+  border: 2px solid red;
+
+}
+
+/* .nav-property {
+  height: 70px
+}
+
+@media (max-width :580px) {
+  .logo {
+    height: 35px;
+  }
+
+} */
+
+.coupon-admin-card {
+  font-size: 14px;
+  font-weight: bold;
+   }
+
+@media (max-width : 780px) {
+  .coupon-admin-card {
+ font-size: 9px !important;
+ font-weight: bold;
+  }
+  img .coupon-admin-card {
+  height: 10px !important;
+  width: 10px !important;
+     }
 }

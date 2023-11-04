@@ -1,7 +1,17 @@
 import { Col, Row } from "react-bootstrap";
 import editicon from "../../images/edit.png";
+import UseGetLoggedUserData from "../../customHooks/auth/UseGetLoggedUserData";
 
 const UserProfile = () => {
+  const [userData] = UseGetLoggedUserData();
+
+  let user;
+  if (userData)
+  {
+    user = userData;
+  } else {
+    user = ""
+  }
   return (
     <div>
     <div className="admin-content-text">الصفحه الشخصية</div>
@@ -9,7 +19,7 @@ const UserProfile = () => {
         <Row className="d-flex justify-content-between pt-2">
             <Col xs="6" className="d-flex">
                 <div className="p-2">الاسم:</div>
-                <div className="p-1 item-delete-edit">احمد عبداللة</div>
+                <div className="p-1 item-delete-edit">{user?.name}</div>
             </Col>
             <Col xs="6" className="d-flex justify-content-end">
                 <div className="d-flex mx-2">
@@ -28,13 +38,13 @@ const UserProfile = () => {
         <Row className="">
             <Col xs="12" className="d-flex">
                 <div className="p-2">رقم الهاتف:</div>
-                <div className="p-1 item-delete-edit">0122314324</div>
+                <div className="p-1 item-delete-edit">{user?.phone}</div>
             </Col>
         </Row>
         <Row className="">
             <Col xs="12" className="d-flex">
                 <div className="p-2">الايميل:</div>
-                <div className="p-1 item-delete-edit">ahmed@gmail.com</div>
+                <div className="p-1 item-delete-edit">{user?.email}</div>
             </Col>
         </Row>
         <Row className="mt-5">
@@ -51,6 +61,18 @@ const UserProfile = () => {
                     placeholder="ادخل كلمة المرور الجديده"
                 />
             </Col>
+        </Row>
+        <Row>
+        <div className="d-flex mx-2">
+                    <img
+                        alt=""
+                        className="ms-1 mt-2"
+                        src={user?.profileImage}
+                        height="17px"
+                        width="15px"
+                    />
+                    <p className="item-delete-edit"> تعديل</p>
+                </div>
         </Row>
 
         <Row>

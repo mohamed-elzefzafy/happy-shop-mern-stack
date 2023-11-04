@@ -21,9 +21,9 @@ setUser(res?.data);
 const res = useSelector((state) =>  state.auth.currentUser);
 
 let userData;
-if (res.data)
+if (res?.data)
 {
-  userData = res.data;
+  userData = res?.data;
 } else {
   userData = "";
 }

@@ -18,7 +18,10 @@ const userSchema = new mongoose.Schema({
     lowercase : true
   },
   phone : String,
-  profileImage : String,
+  profileImage : {
+    type : String,
+    default : `${process.env.BASE_URL}/Users/userAvatar.jpeg`
+  },
   password : {
     type : String,
     required : [true , "password is required"],
@@ -56,21 +59,21 @@ const userSchema = new mongoose.Schema({
 } , {timestamps : true});
 
 
-const setImageUrl = (doc) => {
-  if (doc.profileImage) {
-    const imageUrl =  `${process.env.BASE_URL}/Users/${doc.profileImage}`;
-    doc.profileImage = imageUrl;
-  }
-}
+// const setImageUrl = (doc) => {
+//   if (doc.profileImage) {
+//     const imageUrl =  `${process.env.BASE_URL}/Users/${doc.profileImage}`;
+//     doc.profileImage = imageUrl;
+//   }
+// }
 
-userSchema.post("init" , (doc)=> {
-setImageUrl(doc)
-})
+// userSchema.post("init" , (doc)=> {
+// setImageUrl(doc)
+// })
 
 
-userSchema.post("save" , (doc)=> {
-  setImageUrl(doc)
-  })
+// userSchema.post("save" , (doc)=> {
+//   setImageUrl(doc)
+//   })
 
 
 userSchema.pre("save" , async function(next) {

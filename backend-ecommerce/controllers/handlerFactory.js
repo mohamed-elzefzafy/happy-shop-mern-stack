@@ -43,7 +43,7 @@ if (!document) {
 document.remove();
 
 
-res.status(204).send();
+res.status(200).json({status : "deleted succesufully"});
 
 });
 

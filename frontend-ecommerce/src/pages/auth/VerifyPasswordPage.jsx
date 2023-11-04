@@ -28,7 +28,7 @@ await dispatch(verifyRestCode({
 setLoading(false);
   }
 
-  const res = useSelector((state) => state.auth.verifyPassword)
+  const res = useSelector((state) => state.auth.verifyCode)
 
   useEffect(() => {
 if (loading === false)

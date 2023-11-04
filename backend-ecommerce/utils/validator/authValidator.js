@@ -9,7 +9,6 @@ const ApiError = require("../apiError");
 exports.registerValidator = [
   check("name").notEmpty().withMessage("user name required")
   .isLength({min : 3}).withMessage("too short"),
-  validatorMiddleWare,
   check("email").notEmpty().withMessage("email required")
   .isEmail().withMessage("invalid email")
   .custom((val) => 

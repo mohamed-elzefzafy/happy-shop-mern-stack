@@ -3,11 +3,22 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 import UseRegisterHook from '../../customHooks/auth/UseRegisterHook';
-
+import avatar from "../../images/avatar.png";
+import { useState } from 'react';
 const RegisterPage = () => {
 const [name ,email ,phone ,password , confirmPassword ,
    onchangeName , onchangeEmail , onchangePhone , onChangePassword , 
    onChangeConfirmPassword , onSubmit] =UseRegisterHook();
+
+   const [img, setImg] = useState(avatar);
+  //  const [selectedFile, setSelectedFile] = useState(null);
+
+  //  const onImageChange = (event) =>{
+  //   if(event.target.files && event.target.files[0] )
+  //   {
+  //     setImg(URL.createObjectURL(event.target.files[0]))
+  //     setSelectedFile(event.target.files[0]);
+  //   }  }
   return (
       <Container style={{ minHeight: "680px" }}>
       <ToastContainer/>
@@ -49,6 +60,30 @@ const [name ,email ,phone ,password , confirmPassword ,
               type="password"
               className="user-input text-center my-3 mx-auto"
             />
+
+              
+{/* <div className='text-center'>
+              <label htmlFor="upload-photo">
+                              <img
+                                  src={img}
+                                  alt="fzx"
+                                  height="100px"
+                                  width="120px"
+                                  style={{ cursor: "pointer" }}
+                              />
+                          </label>
+                          <input
+                            type="file"
+                            name="photo"
+                            // onChange={onImageChange}
+                            id="upload-photo"
+                        />
+                      <p className='fw-bold text-secondary mt-2'>صورة الملف الشخصى</p>
+
+          </div> */}
+
+
+
             <button onClick={onSubmit} className="btn-login mx-auto mt-4 mastercolor" >تسجيل الحساب</button>
             <label className="mx-auto my-4 text-secondary fw-bold">
               لديك حساب بالفعل؟{" "}

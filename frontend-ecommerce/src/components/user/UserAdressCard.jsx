@@ -1,14 +1,75 @@
-import { Col, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Button, Col, Modal, Row } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
 import deleteicon from "../../images/delete.png";
 import editicon from "../../images/edit.png";
+import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
+import { deleteAddress } from '../../redux/actions/addressAction';
+import { useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
-const UserAdressCard = () => {
+const UserAdressCard = ({address}) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const handleDelete = ()=> {}
+
+
+  const onDelete = async() => {
+setLoading(true);
+await dispatch(deleteAddress(address?._id));
+setLoading(false);
+handleClose();
+  }
+
+  const resDelete = useSelector((state) => state.address.deleteAddress);
+
+  useEffect(() => {
+    if (loading === false)
+    {
+      if (resDelete)
+      {
+        console.log(resDelete);
+        if (resDelete.status === "success")
+        {
+          toast.success("تم حذف العنوان");
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+        } else {
+          toast.error("يوجد مشكله لم يتم الحذف")
+        }
+      }
+    }
+
+  },[loading]);
+
+
   return (
     <div className="user-address-card my-3 px-3">
+    <ToastContainer/>
+    <Modal show={show} onHide={handleClose}>
+        <Modal.Header>
+          <Modal.Title> <div className="font">تأكيد الحذف</div> </Modal.Title>
+        </Modal.Header>
+        <Modal.Body> <div className="font">هل أنت متأكد من الحذف ؟</div> </Modal.Body>
+        <Modal.Footer>
+          <Button className="font" variant="success" onClick={handleClose}>
+         تراجع 
+          </Button>
+          <Button  variant="danger" onClick={onDelete}>
+          حذف
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+
     <Row className="d-flex justify-content-between  ">
         <Col xs="1">
-            <div className="p-2">المنزل</div>
+            <div className="p-2">{address?.alias} </div>
         </Col>
         <Col xs="4" className="d-flex d-flex justify-content-end">
             <div className="d-flex p-2">
@@ -26,7 +87,7 @@ const UserAdressCard = () => {
                         <p className="item-delete-edit"> تعديل</p>
                     </Link>
                 </div>
-                <div className="d-flex ">
+                <div className="d-flex" onClick={handleShow}>
                     <img
                         alt=""
                         className="ms-1 mt-2"
@@ -48,7 +109,7 @@ const UserAdressCard = () => {
                     fontFamily: "Almarai",
                     fontSize: "14px",
                 }}>
-                القاهرة مدينه نصر شارع التسعين عماره ١٤
+              {address?.details}
             </div>
         </Col>
     </Row>
@@ -61,7 +122,7 @@ const UserAdressCard = () => {
                     fontFamily: "Almarai",
                     fontSize: "16px",
                 }}>
-                رقم الهاتف:
+                رقم الهاتف: 
             </div>
 
             <div
@@ -71,7 +132,7 @@ const UserAdressCard = () => {
                     fontSize: "16px",
                 }}
                 className="mx-2">
-                0021313432423
+              {address?.phone}
             </div>
         </Col>
     </Row>

@@ -1,10 +1,11 @@
-import { FORGET_PASSWORD, GET_CURRENT_USER, LOGIN, REGISTER, VERIFY_RESET_PASSWORD } from "../type";
+import { FORGET_PASSWORD, GET_CURRENT_USER, LOGIN, REGISTER, RESET_PASSWORD, VERIFY_RESET_CODE, VERIFY_RESET_PASSWORD } from "../type";
 
 const inital = {
   registerUser: [],
   loginUser: [],
   currentUser: [],
   forgetPassword: [],
+  verifyCode: [],
   verifyPassword: [],
   loading: true,
 };
@@ -32,11 +33,17 @@ const authReducer = (state = inital, action) => {
         forgetPassword: action.payload,
       };
 
-      case VERIFY_RESET_PASSWORD:
+      case VERIFY_RESET_CODE:
         return {
           ...state,
-          verifyPassword: action.payload,
+          verifyCode: action.payload,
         };
+        case RESET_PASSWORD:
+          return {
+            ...state,
+            verifyPassword: action.payload,
+          };
+    
   
 
     default:

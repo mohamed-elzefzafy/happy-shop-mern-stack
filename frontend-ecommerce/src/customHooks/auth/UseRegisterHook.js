@@ -61,7 +61,7 @@ setPassword(e.target.value);
       toast.warning("من فضلك أدخل تأكيد كلمة المرور");
       return;
     } else if ( confirmPassword !== password) {
-      toast.warning("كلمة المرور غير مطابقه");
+      toast.warning("تأكيد كلمة المرور غير مطابق");
       return;
     }
   }

@@ -30,8 +30,8 @@ category = []
 
 
 let brand =[];
-if (allBrand.data)
-brand = allBrand.data;
+if (allBrand?.data)
+brand = allBrand?.data;
 else
 brand = [];
 

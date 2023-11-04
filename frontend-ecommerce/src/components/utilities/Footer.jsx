@@ -6,7 +6,7 @@ import twitter from "../../images/twitter.png";
 
 const Footer = () => {
   return (
-    <div className="footer-background footer mt-3 pt-2" style={{ maxHeight: "50px" }}>
+    <div className="footer-background footer mt-3 pt-2 mastercolor" >
     <Container className="">
         <Row className="d-flex justify-content-between align-items-center">
             <Col sm="6" className="d-flex align-items-center ">
@@ -21,7 +21,7 @@ const Footer = () => {
                     <img width="20px" height="20px" src={phone} alt="" />
                     <p className="footer-phone">0122455346356</p>
                 </div>
-                <div style={{ cursor: "pointer" }}>
+                <div style={{ cursor: "pointer"}}>
                     <img width="20px" height="20px" src={facebook} alt="" />
                 </div>
                 <div style={{ cursor: "pointer" }} className="">

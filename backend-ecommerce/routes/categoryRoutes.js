@@ -15,7 +15,7 @@ router.use("/:categoryId/subcategories"   ,subCategoryRoute);
 
 
 
-router.route("/").get(getCategories).post(/* protect , allowedTo("admin" , "manger" ) , */uploadCategoryImage ,resizeImageCategory , createCategoryValidator ,  createCategory);
+router.route("/").get(getCategories).post( protect , allowedTo("admin" , "manger" ) , uploadCategoryImage ,resizeImageCategory , createCategoryValidator ,  createCategory);
 router.route("/:id")
 .get(getCategoryValidator, getOneCategy)
 .put( protect , allowedTo("admin" , "manger" ) , uploadCategoryImage,  resizeImageCategory, updateCategoryValidator , updateCategory)

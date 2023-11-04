@@ -1,6 +1,8 @@
 import { useGetDataToken } from "../../Hooks/useGetData";
 import { useInsertData } from "../../Hooks/useInsertData";
-import { FORGET_PASSWORD, GET_CURRENT_USER, GET_ERROR, LOGIN, REGISTER, VERIFY_RESET_PASSWORD } from "../type";
+import { useUpdateData } from "../../Hooks/useUpdateData";
+import { FORGET_PASSWORD, GET_CURRENT_USER,  LOGIN, REGISTER, RESET_PASSWORD, VERIFY_RESET_CODE} from "../type";
+
 
 
 export const registerUser = (data) => async (dispatch) => {
@@ -80,12 +82,30 @@ export const verifyRestCode = (data) => async (dispatch) => {
 const response = await useInsertData(`/api/v1/auth/verifyrestcode` , data);
   
     dispatch ({
-      type : VERIFY_RESET_PASSWORD,
+      type : VERIFY_RESET_CODE,
       payload : response
     })
   } catch (error) {
      dispatch ({
-      type : VERIFY_RESET_PASSWORD,
+      type : VERIFY_RESET_CODE,
+      payload :error.response
+     })
+  }
+}
+
+
+export const restUserPassword = (data) => async (dispatch) => {
+  try {
+
+const response = await useUpdateData(`/api/v1/auth/resetpassword` , data);
+  
+    dispatch ({
+      type : RESET_PASSWORD,
+      payload : response
+    })
+  } catch (error) {
+     dispatch ({
+      type : RESET_PASSWORD,
       payload :error.response
      })
   }

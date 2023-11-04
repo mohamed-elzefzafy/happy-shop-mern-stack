@@ -20,19 +20,15 @@ const dispatch = useDispatch();
 
 
   const handleDelete =async()=> {
-
+console.log(product?._id);
     setLoading(true)
 await dispatch(deleteProduct(product?._id))
-setLoading(true)
+setLoading(false)
 setShow(false)
 await   toast.success("تم الحذف")
- window.location.reload();
-
-
-
-
-
-
+setTimeout(() => {
+  window.location.reload();
+}, 1500);
   }
 
 //   const deletedProduct = useSelector((state) => state.allProduct.deleteProduct)
@@ -77,7 +73,7 @@ await   toast.success("تم الحذف")
         }}>
         <Row className="d-flex justify-content-center px-2">
             <Col className=" d-flex justify-content-between">
-                <div className="d-inline item-delete-edit" onClick={handleShow}>ازاله</div>
+                <div className="d-inline item-delete-edit" onClick={handleShow}>حذف</div>
               
                 <Link style={{textDecoration : "none"}} to={`/admin/editproduct/${product._id}`}>
                 <div className="d-inline item-delete-edit">تعديل</div>
