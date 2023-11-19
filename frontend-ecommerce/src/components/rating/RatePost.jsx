@@ -63,20 +63,20 @@ useEffect(() => {
     if (res)
     {
       console.log(res);  
-        if(res.data.errors && res.data.errors[0].msg === "you have reviewed this product before")
+        if(res?.data?.errors && res?.data?.errors[0]?.msg === "you have reviewed this product before")
       {
         toast.error("تم تقييم هذا المنتج من قبل");
         return;
       }
 
-      if(res.status && res.status === 403)
+      if(res?.status && res?.status === 403)
       {
         toast.error("غير مسموح للأدمن بتقييم المنتجات");
         return;
       }
 
         
-      if(res.status && res.status === 201)
+      if(res?.status && res?.status === 201)
       {
         toast.success("تم التقييم بنجاح");
         // setTimeout(() => {
@@ -109,7 +109,7 @@ useEffect(() => {
     <ToastContainer/>
     <Row className="mt-3 ">
       <Col sm="12" className="me-5  d-flex">
-        <div className="rate-name  d-inline ms-3 mt-1 "> {user.name}</div>
+        <div className="rate-name  d-inline ms-3 mt-1 "> {user?.name}</div>
         <ReactStars {...setting} />
       </Col>
     </Row>

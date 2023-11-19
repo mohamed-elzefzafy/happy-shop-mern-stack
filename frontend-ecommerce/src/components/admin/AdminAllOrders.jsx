@@ -33,7 +33,7 @@ await dispatch(getAllOrders( "" , 10 ));
     <div className="admin-content-text my-3">عدد الطلبات   : {res?.results}</div>
     <Row className="justify-content-start">
 
-    {res.data ? (
+    {res?.data ? (
         res?.data?.map((order , index) => 
         <AdminOrdersDetails order={order}  user={order?.user} total={order?.totalOrderPrice} key={index}/>
         )

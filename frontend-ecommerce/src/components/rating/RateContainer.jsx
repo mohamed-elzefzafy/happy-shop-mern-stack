@@ -39,10 +39,13 @@ const RateContainer = ({rateAvg , rateQty}) => {
         </Col>
     </Row>
     <RatePost/>
+    
     {
-      res.data?.map((rate , index) => 
+      res?.data ? (
+        res?.data?.map((rate , index) => 
       <RateItem rate={rate} key={index}/>
       )
+      ) : <h3>loading....</h3>
     }
 
 {res?.paginationResult?.numberOfPage > 1 &&
