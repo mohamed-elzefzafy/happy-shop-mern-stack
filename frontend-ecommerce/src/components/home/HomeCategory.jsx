@@ -12,7 +12,7 @@ const [loading , category ,colors] = UseHomeCategoryHook();
     <Row className="d-flex my-2 justify-content-start">
     {
     !loading ? (  category?.data ? category?.data?.slice(0 , 6).map((category , index) => 
-      <CategoryCard   img={category.image}  title={category.name} background={colors[index]} key={index}/>
+      <CategoryCard  id={category._id} img={category.image}  title={category.name} background={colors[index]} key={index} />
       ) : <h4>لا يوجد تصنيقات</h4>   ) : <Spinner animation="border" variant="primary" />
     }
     </Row>

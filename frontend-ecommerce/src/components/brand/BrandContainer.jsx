@@ -13,7 +13,7 @@ const BrandContainer = ({data , loading}) => {
   <Row>
  {
   !loading ? (  data ? (data.map((brand , index) => 
-    <BrandCard img={brand.image} key={index}/>)) : <h4>لا يوجد ماركات</h4>) : (<Spinner animation="border" variant="primary" />)
+    <BrandCard id={brand._id} img={brand.image} key={index}/>)) : <h4>لا يوجد ماركات</h4>) : (<Spinner animation="border" variant="primary" />)
   }
       
 

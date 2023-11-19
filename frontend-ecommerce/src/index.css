@@ -712,19 +712,8 @@ font-weight: bold !important;
 
 .red {
   border: 2px solid red;
-
 }
 
-/* .nav-property {
-  height: 70px
-}
-
-@media (max-width :580px) {
-  .logo {
-    height: 35px;
-  }
-
-} */
 
 .coupon-admin-card {
   font-size: 14px;
@@ -739,5 +728,22 @@ font-weight: bold !important;
   img .coupon-admin-card {
   height: 10px !important;
   width: 10px !important;
+
      }
 }
+
+
+.badge-span {
+  width: 20px;
+  height: 20px;
+  top: -16px;
+  left: -3px;
+  font-size: 13px;
+}
+
+/* 
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+} */

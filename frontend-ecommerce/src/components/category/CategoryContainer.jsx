@@ -12,7 +12,7 @@ const CategoryContainer = ({category , loading }) => {
     <Row className="d-flex my-2 justify-content-start">
     {
       !loading ? (  category.data ?category.data.map((category , index) => 
-      <CategoryCard   img={category.image}  title={category.name} background={colors[Math.floor(Math.random() * 5)]} key={index}/>
+      <CategoryCard id={category._id}  img={category.image}  title={category.name} background={colors[Math.floor(Math.random() * 5)]} key={index}/>
       ) :<h4>لا يوجد تصنيفات</h4> ) : (<Spinner animation="border" variant="primary" />)
   
     }

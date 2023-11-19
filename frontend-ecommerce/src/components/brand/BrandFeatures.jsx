@@ -16,7 +16,7 @@ const BrandFeatures = ({title , btntitle}) => {
         {
     !loading ? (  brand?.data ? brand?.data?.slice(0 , 6).map((brand , index) => 
     
-                   <BrandCard img={brand.image} key={index}/>
+                   <BrandCard id={brand._id} img={brand.image} key={index}/>
       ) : <h4>لا يوجد ماركات</h4>   ) : <Spinner animation="border" variant="primary" />
     }
     </Row>

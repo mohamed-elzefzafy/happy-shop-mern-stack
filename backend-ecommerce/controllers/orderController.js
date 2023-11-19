@@ -39,6 +39,7 @@ const bulkoption = cart.cartItems.map((item) => ({
     update : {$inc :{quantity : -item.quantity , sold : +item.quantity} }
   }
   }))
+
   await ProductModel.bulkWrite(bulkoption , {})
 // 5 -  Clear cart depend on cartId
 await CartModel.findByIdAndDelete(req.params.cartId);
@@ -84,7 +85,9 @@ exports.updateOrderToPaid = asyncHandler(async(req , res , next) => {
   if (!order) {
     return next(new  ApiError(`there is no order for this id ${req.params.id}` , 404))
   }
-
+if (order.isPaid === true) {
+  return next(new  ApiError(`the order is already paid` , 500))
+} 
   // update order paid details 
 order.isPaid = true;
 order.paidAt = Date.now();
@@ -105,7 +108,9 @@ exports.updateOrderToDeliverd = asyncHandler(async(req , res , next) => {
   if (!order) {
     return next(new  ApiError(`there is no order for this id ${req.params.id}` , 404))
   }
-
+  if (order.isDelivered === true) {
+    return next(new  ApiError(`the order is already Delivered` , 500))
+  } 
   // update order deliverd details
 order.isDelivered = true;
 order.deliveredAt = Date.now();

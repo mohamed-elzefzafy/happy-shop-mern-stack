@@ -16,12 +16,14 @@ const RateContainer = ({rateAvg , rateQty}) => {
   await dispatch(allReviewsForProduct(id , 1 , 5))
   }
 
-  useEffect(() => {
-    getProductReviews();
-  },[])
   const res = useSelector((state) => state.review.productReviews);
   if (res)
   console.log(res);
+
+  useEffect(() => {
+    getProductReviews();
+  },[res])
+
 
   const onPress = async (page) => {
     await dispatch(allReviewsForProduct(id , page , 5))

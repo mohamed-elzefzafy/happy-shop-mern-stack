@@ -101,9 +101,9 @@ exports.updateOne = (model) => asyncHandler(async (req , res , next) => {
       }
 
 
-      if (model === ProductModel ) {
-        setImageUrl(document);
-      }
+      // if (model === ProductModel ) {
+      //   setImageUrl(document);
+      // }
   
       res.status(201).json({data : document});
   

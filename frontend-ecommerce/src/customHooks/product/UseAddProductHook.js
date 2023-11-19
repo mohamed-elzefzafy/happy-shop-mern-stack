@@ -35,6 +35,13 @@ const newColorsArray = colors.filter((Color) => Color !== color);
 setColors(newColorsArray)
 }
 
+const onChangePriceAfter = (e) => {
+  setPriceAftr(e.target.value);
+}
+
+const onChangePriceBefore = (e) => {
+  setPriceBefore(e.target.value);
+}
 
 const colorBoxShow = () => {
 setShowColor(!showColor)
@@ -117,8 +124,7 @@ const onRemove = (selectedList)=> {
 // to save product
 const handleSubmit =async (e) => {
   e.preventDefault();
-  if (prodName === "" || prodDescription === "" || qty === "" || priceBefore === "" || images.length <= 0 || CatID === 0 
-  || colors.length <= 0 )
+  if (prodName === "" || prodDescription === "" || qty === "" || priceBefore === "" || images.length <= 0 || CatID === 0  )
   {
     toast.warning("من فضلك أكمل البيانات");
     return;
@@ -142,6 +148,7 @@ const handleSubmit =async (e) => {
   formData.append("description" , prodDescription);
   formData.append("quantity" , qty);
   formData.append("price" , priceBefore);
+  // formData.append("priceAfterDiscount" , priceAftr);
   formData.append("imageCover" , imageCover);
   formData.append("category" , CatID);
   formData.append("brand" , BrandID);
@@ -193,7 +200,7 @@ if (product) {
 
 return [images ,prodName ,CatID , prodDescription,priceBefore , priceAftr,qty ,category,options , BrandID ,brand,colors,showColor,
    colorBoxShow,onSelect , onRemove, onSelectBrand, removeColor,handleChangeComplete,handleSubmit,
-  setImages , setProdName , setProdDescription , setPriceBefore , setPriceAftr , setQty , onSelectCategory]
+  setImages , setProdName , setProdDescription , onChangePriceBefore , onChangePriceAfter , setQty , onSelectCategory]
 }
 
 export default UseAddProductHook

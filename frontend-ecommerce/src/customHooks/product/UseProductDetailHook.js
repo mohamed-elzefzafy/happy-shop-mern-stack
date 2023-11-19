@@ -12,6 +12,8 @@ const UseProductDetailHook = (id) => {
 
       await dispatch(getOneProduct(id))
   }
+
+  
   useEffect(() => {
     getProducts()
   }

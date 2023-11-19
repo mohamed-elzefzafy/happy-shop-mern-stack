@@ -83,7 +83,10 @@ productSchema.pre(/^find/ , function (next) {
   this.populate({
   path : "category" , 
   select : "name"
-  });
+  }).populate({
+    path : "brand" , 
+    select : "name"
+    });
   next();
 });
 

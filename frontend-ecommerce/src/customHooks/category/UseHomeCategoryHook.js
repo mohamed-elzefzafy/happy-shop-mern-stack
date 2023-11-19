@@ -7,7 +7,10 @@ const UseHomeCategoryHook = () => {
 
 
   useEffect(()=> {
-    dispatch(getAllCategory());
+  const getData = async() => {
+  await  dispatch(getAllCategory());
+  }
+  getData();
   },[])
   
   const category = useSelector((state) => state.allCategory.category);

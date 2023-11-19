@@ -54,7 +54,7 @@ exports.createProductValidator = [
     .isNumeric()
     .withMessage('Product priceAfterDiscount must be a number')
     .toFloat()
-    .custom((value, { req }) => {
+    .custom((value , { req }) => {
       if (req.body.price < value) {
         throw new Error('priceAfterDiscount must be lower than price');
       }

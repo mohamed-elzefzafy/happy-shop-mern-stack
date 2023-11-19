@@ -51,3 +51,47 @@ exports.getLoggedUserAddress = asyncHandler(async(req , res , next) => {
 res.status(200).json({  ststus : "success" , Result : user.addresses.length, data : user.addresses})
 
 })
+
+
+/**
+ * @desc    update logged user addresses 
+ * @route   /api/v1/addresses/:addressId
+ * @method  put
+ * @access  private user 
+ */
+
+exports.updateLoggedUserAddress = asyncHandler(async(req , res , next) => {
+  const user = await UserModel.findById(req.user._id);
+  const userAddress = user.addresses.id(req.params.addressId);
+  userAddress.alias = req.body.alias || userAddress.alias;
+  userAddress.details = req.body.details || userAddress.details;
+  userAddress.phone = req.body.phone || userAddress.phone;
+  userAddress.city = req.body.city || userAddress.city;
+
+await  user.save();
+res.status(201).json({  ststus : "address updated successfully" , data : userAddress})
+
+})
+
+
+/**
+ * @desc    Get specific logged user addresses 
+ * @route   /api/v1/addresses/:addressId
+ * @method  GET
+ * @access  private user 
+ */
+
+
+exports.getLoggedUserSpecificAddress = asyncHandler(async(req ,res , next) => {
+const user = await UserModel.findById(req.user._id);
+
+// const specififcAddress =  user.addresses.find((address) => address._id === req.params.addressId);
+
+const specififcAddress = user.addresses.id(req.params.addressId);
+if (!specififcAddress)
+{
+  return next(new ApiError("address not found"));
+}
+
+res.status(200).json({ ststus : "success" , data : specififcAddress});
+})

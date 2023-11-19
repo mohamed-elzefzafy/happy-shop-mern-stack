@@ -19,6 +19,7 @@ const cartSchema = new mongoose.Schema({
   ] ,
   totalCartPrice : Number ,
   totalCartPriceAfterDiscount : Number ,
+  coupon : String ,
   user : {
    type :  mongoose.Schema.ObjectId ,
    ref : "User"
@@ -29,7 +30,7 @@ const cartSchema = new mongoose.Schema({
 cartSchema.pre(/^find/ , function (next) {
   this.populate({
     path : "cartItems.product" ,
-    select :  "title imageCover"
+    select :  "title imageCover ratingsAverage brand"
   }).populate({
     path : "user" , 
     select : "name profileImage email phone"

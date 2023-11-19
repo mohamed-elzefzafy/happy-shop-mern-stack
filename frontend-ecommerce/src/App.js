@@ -29,13 +29,25 @@ import ResetPassword from './pages/auth/ResetPassword';
 import AdminAllUsersPage from './pages/admin/AdminAllUsersPage';
 import AdminAddCouponPage from './pages/admin/AdminAddCouponPage';
 import AdminEditCouponPage from './components/admin/AdminEditCouponPage';
+import UseProtectedRoute from './customHooks/UseProtectedRoute';
+import ProtectedRoute from './components/utilities/ProtectedRoute';
+import ProductByCategoryPage from './pages/product/ProductByCategoryPage';
+import ProductByBrandPage from './pages/product/ProductByBrandPage';
+import AdminSpecificOrder from './components/admin/AdminSpecificOrder';
+
+
+
+
+
 
 function App() {
+const [isUser , isAdmin , userData] = UseProtectedRoute();
 
   const router = createBrowserRouter([{
       path :"/" ,
       element : <HomePage/>,
       children : [
+        //general routes
        {index : true ,  element :<HomeIndex/>} ,
        {path : "/login" , element : <LoginPage/>},
        {path : "/register" , element : <RegisterPage/>},
@@ -43,28 +55,36 @@ function App() {
        {path : "/allbrand" , element : <AllBrandsPage/>},
        {path : "/products" , element : <ShopProductPage/>},
        {path : "/products/:id" , element : <ProductDetailsPage/>},
-       {path : "/admin/editproduct/:id" , element : <AdminEditProductPage/>},
-       {path : "/cart" , element : <CartPage/>},
-       {path : "/order/paymentmethod" , element : <ChoosePayMethoudPage/>},
-       {path : "/admin/allproducts" , element : <AdminAllProductsPage/>},
-       {path : "/admin/allorders" , element : <AdminAllOrdersPage/>},
-       {path : "/admin/orders/:id" , element : <AdminOrderDetailsPage/>},
-       {path : "/admin/addbrand" , element : <AdminAddBrandPage/>},
-       {path : "/admin/addcategory" , element : <AdminAddCategoryPage/>},
-       {path : "/admin/addsubcategory" , element : <AdminAddSubcategoryPage/>},
-       {path : "/admin/addproduct" , element : <AdminAddProductPage/>},
-       {path : "/admin/allusers" , element : <AdminAllUsersPage/>},
-       {path : "/admin/addcoupon" , element : <AdminAddCouponPage/>},
-       {path : "/admin/editcoupon/:id" , element : <AdminEditCouponPage/>},
-       {path : "/user/allorders" , element : <UserAllOrdersPage/>},
-       {path : "/user/favoriteproducts" , element : <UserFavoriteProductsPage/>},
-       {path : "/user/addresses" , element : <UserAllAdressesPage/>},
-       {path : "/user/add-address" , element : <UserAddAdressPage/>},
-       {path : "/user/edit-address" , element : <UserEditAdressPage/>},
-       {path : "/user/profile" , element : <UserProfilePage/>},
        {path : "/forgetpassword" , element : <ForgetPasswordPage/>},
        {path : "/verifycode" , element :<VerifyPasswordPage/> },
        {path : "/resetpassword" , element :<ResetPassword/> },
+       {path : "/product/category/:id" , element :<ProductByCategoryPage/> },
+       {path : "/product/brand/:id" , element : <ProductByBrandPage/> },
+    
+      //admin routes
+       {path : "/admin/allproducts" , element : <ProtectedRoute auth={isAdmin}><AdminAllProductsPage/></ProtectedRoute> },
+       {path : "/admin/editproduct/:id" , element : <ProtectedRoute auth={isAdmin}><AdminEditProductPage/> </ProtectedRoute>},
+       {path : "/admin/allorders" , element : <ProtectedRoute auth={isAdmin}> <AdminAllOrdersPage/> </ProtectedRoute>},
+       {path : "/admin/orders/:id" , element : <ProtectedRoute auth={isAdmin}><AdminSpecificOrder/></ProtectedRoute>},
+       {path : "/admin/addbrand" , element :<ProtectedRoute auth={isAdmin}><AdminAddBrandPage/></ProtectedRoute> },
+       {path : "/admin/addcategory" , element : <ProtectedRoute auth={isAdmin}><AdminAddCategoryPage/></ProtectedRoute>},
+       {path : "/admin/addsubcategory" , element :<ProtectedRoute auth={isAdmin}><AdminAddSubcategoryPage/></ProtectedRoute> },
+       {path : "/admin/addproduct" , element :<ProtectedRoute auth={isAdmin}><AdminAddProductPage/></ProtectedRoute> },
+       {path : "/admin/allusers" , element :<ProtectedRoute auth={isAdmin}><AdminAllUsersPage/></ProtectedRoute>},
+       {path : "/admin/addcoupon" , element : <ProtectedRoute auth={isAdmin}><AdminAddCouponPage/></ProtectedRoute>},
+       {path : "/admin/editcoupon/:id" , element :<ProtectedRoute auth={isAdmin}><AdminEditCouponPage/></ProtectedRoute> },
+
+        //user routes
+       {path : "/order/paymentmethod" ,  element :<ProtectedRoute auth={isUser}><ChoosePayMethoudPage/></ProtectedRoute> },
+       {path : "/cart" , element :<ProtectedRoute auth={isUser}><CartPage/></ProtectedRoute> },
+       {path : "/user/allorders" , element :<ProtectedRoute auth={isUser}><UserAllOrdersPage/></ProtectedRoute> },
+       {path : "/user/favoriteproducts" , element :<ProtectedRoute auth={isUser}><UserFavoriteProductsPage/></ProtectedRoute> },
+       {path : "/user/addresses" , element :<ProtectedRoute auth={isUser}><UserAllAdressesPage/></ProtectedRoute> },
+       {path : "/user/add-address" , element :<ProtectedRoute auth={isUser}><UserAddAdressPage/></ProtectedRoute> },
+       {path : "/user/edit-address/:id" , element : <ProtectedRoute auth={isUser}><UserEditAdressPage/></ProtectedRoute>},
+       {path : "/user/profile" , element : <ProtectedRoute auth={isUser}><UserProfilePage/></ProtectedRoute>},
+
+    
       ] 
     }])
     

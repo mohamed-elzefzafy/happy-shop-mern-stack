@@ -14,6 +14,10 @@ const UserFavoriteProduct = () => {
   const [favProduct, setFavProduct] = useState([]);
 
 
+
+
+
+  const res = useSelector(state => state.wishList.allUserWishList);
   useEffect(() => {
   const getData = async () => {
     setLoading(true);
@@ -23,7 +27,7 @@ const UserFavoriteProduct = () => {
   getData();
   },[])
 
-  const res = useSelector(state => state.wishList.allUserWishList);
+
   useEffect(() => {
 try {
   if (loading === false) 

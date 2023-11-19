@@ -6,13 +6,16 @@ const CartModel = require("../models/cartModel");
 
 
 
+
+
+
 const calcTotalCartPrice = (cart) => {
   let totalPrice = 0;
   cart.cartItems.forEach((item) => {
    totalPrice += (item.price * item.quantity);
   })
   cart.totalCartPrice = totalPrice;
-  cart.totalCartPriceAfterDiscount  =  undefined;
+  // cart.totalCartPriceAfterDiscount  =  undefined;
   return totalPrice;
 }
 
@@ -34,16 +37,18 @@ exports.addProductToCart = asyncHandler(async(req , res , next) => {
       cartItems :[{product : productId, color ,  price : product.price}]
 
      });
-  } else {
+  } 
+  else {
     // product exit in cart update product quantity
 
-  const  ProductIndex = cart.cartItems.findIndex((item) => item.product.toString() === productId && item.color === color);
+  const  ProductIndex = cart.cartItems.findIndex((item) => item.product._id.toString() === productId && item.color === color);
    
   if (ProductIndex > -1) {
   const cartItem =   cart.cartItems[ProductIndex];
     cartItem.quantity += 1;
     cart.cartItems[ProductIndex] = cartItem;
-  } else {
+  } 
+  else {
     // product not exit push product to cartitems array
     // cart = await CartModel.findOneAndUpdate({cartItems :[{product : productId, color ,  price : product.price}]} , {new : true} )
     cart.cartItems.push({product : productId, color , price : product.price});
@@ -75,7 +80,11 @@ exports.getLoggedUserCart = asyncHandler(async(req , res , next) => {
  return next(new ApiError(`you dont have cart for this user id ${req.user._id}` , 404));
   }
   calcTotalCartPrice(cart);
-res.status(200).json({ status : "success" , result : cart.cartItems.length , data : cart});
+  
+
+
+
+res.status(200).json({ status : "success" , result : cart.cartItems.length , data : cart  , totalAfterDiscount : cart.totalCartPriceAfterDiscount});
 })
 
 
@@ -91,7 +100,7 @@ exports.removeSpecificCartItem = asyncHandler(async(req , res , next) => {
     calcTotalCartPrice(cart);
 
     await cart.save();
-    res.status(200).json({ status : "success" , result : cart.cartItems.length , data : cart});
+    res.status(200).json({ status : "deleted successefully" , result : cart.cartItems.length , data : cart});
 })
 
 /**
@@ -102,8 +111,13 @@ exports.removeSpecificCartItem = asyncHandler(async(req , res , next) => {
  */
 
 exports.clearCart = asyncHandler( async(req , res , next) => {
-  await CartModel.findOneAndDelete({user : req.user._id});
-  res.status(204).send();
+const cart =  await CartModel.findOneAndDelete({user : req.user._id});
+if (!cart)
+{
+  return next(new ApiError(`there's no items in the cart` , 404));
+}
+cart.coupon = "";
+  res.status(200).send({status : "allCart Deleted successfully"});
 })
 
 
@@ -155,6 +169,7 @@ const cart = await CartModel.findOne({user : req.user._id});
 const totalPrice = cart.totalCartPrice;
  // 3) Calculate price after priceAfterDiscount
  const totalPriceAfterDiscount = (totalPrice - (totalPrice * coupon.discount)/100).toFixed(2);
+ cart.coupon = req.body.coupon;
 cart.totalCartPriceAfterDiscount  =  totalPriceAfterDiscount;
 await cart.save();
 res.status(200).json({ status : "success" , result : cart.cartItems.length , data : cart});

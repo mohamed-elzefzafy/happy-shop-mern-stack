@@ -140,7 +140,14 @@ useEffect(() => {
                                 <div className="card-rate mx-2">{product?.ratingsAverage || 0}</div>
                             </div>
                             <div className="d-flex">
-                                <div className="card-price">{product?.price}</div>
+                                <div className="card-price">  
+                                {/* {product?.priceAfterDiscount < product?.price ? (
+
+                         <div> <span style={{textDecoration : "line-through"}}>{product?.price}</span>  {" "}  {product?.priceAfterDiscount}    </div>
+                                ) :  */}
+                                {product?.price}
+                                {/* } */}
+                                  </div>
                                 <div className="card-currency mx-1">جنيه</div>
                             </div>
                         </div>

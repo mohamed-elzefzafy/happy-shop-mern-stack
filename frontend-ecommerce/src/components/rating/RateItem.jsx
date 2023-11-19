@@ -58,9 +58,9 @@ handleClose();
         if(res && res.status === "deleted succesufully")
         SetshowDelete(false);
         toast.success("تم حذف التقييم");
-       setTimeout(() => {
-        window.location.reload();
-       }, 700);
+      //  setTimeout(() => {
+      //   window.location.reload();
+      //  }, 700);
         console.log(res);
       } else {
         toast.error("يوجد خطأ");

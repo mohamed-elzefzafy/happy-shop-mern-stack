@@ -1,3 +1,5 @@
+const { plugin } = require("@znemz/mongoose-auto-increment");
+const {autoIncrement} = require("@znemz/mongoose-auto-increment");
 const  mongoose  = require("mongoose");
 
 
@@ -53,16 +55,23 @@ user : {
 } , {timestamps: true});
 
 
+
+
 orderSchema.pre(/^find/ , function(next) {
 this.populate({
   path : "user",
   select : "name profileImage email phone"
 }).populate({
   path : "cartItems.product" ,
-  select : "title imageCover"
+  select : "title imageCover colors"
 })
 
 next();
 })
+
+
+
+
+
 const OrderModel = mongoose.model("Order" , orderSchema);
 module.exports = OrderModel;

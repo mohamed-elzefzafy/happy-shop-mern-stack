@@ -36,9 +36,9 @@ handleClose();
         if (resDelete.status === "success")
         {
           toast.success("تم حذف العنوان");
-          setTimeout(() => {
-            window.location.reload();
-          }, 1500);
+          // setTimeout(() => {
+          //   window.location.reload();
+          // }, 1500);
         } else {
           toast.error("يوجد مشكله لم يتم الحذف")
         }
@@ -73,8 +73,8 @@ handleClose();
         </Col>
         <Col xs="4" className="d-flex d-flex justify-content-end">
             <div className="d-flex p-2">
+            <Link to={`/user/edit-address/${address?._id}`} style={{ textDecoration: "none" }}>
                 <div className="d-flex mx-2">
-                <Link to="/user/edit-address" style={{ textDecoration: "none" }}>
                     <img
                         alt=""
                         className="ms-1 mt-2"
@@ -82,11 +82,9 @@ handleClose();
                         height="17px"
                         width="15px"
                     />
-                      </Link>
-                    <Link to="/user/edit-address" style={{ textDecoration: "none" }}>
-                        <p className="item-delete-edit"> تعديل</p>
-                    </Link>
+                        <p className="item-delete-edit"> تعديل</p>  
                 </div>
+                    </Link>
                 <div className="d-flex" onClick={handleShow}>
                     <img
                         alt=""
@@ -95,7 +93,7 @@ handleClose();
                         height="17px"
                         width="15px"
                     />
-                    <p className="item-delete-edit"> ازاله</p>
+                    <p className="item-delete-edit">حذف</p>
                 </div>
             </div>
         </Col>

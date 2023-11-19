@@ -1,20 +1,48 @@
 import { Col, Row } from "react-bootstrap";
-import CartItem from "../cart/CartItem";
+import AdminAllOrdersItem from "./AdminAllOrdersItem";
+import { Link } from "react-router-dom";
 
 
-const AdminOrdersDetails = () => {
+const AdminOrdersDetails = ({order , user , total}) => {
+  console.log(order?._id);
+  console.log(user);
   return (
-    <div>
-    <div className='admin-content-text'>تفاصيل الطلب رقم#55</div>
-<CartItem/>
-<CartItem/>
-<CartItem/>
+    <Link
+        to={`/admin/orders/${order?._id}`}
+        style={{textDecoration : "none"}}
+    >
+    <div  className="mb-3 border border-secondary rounded d-flex flex-column align-items-center pb-2"
+    style={{backgroundColor : "#ffffff"}}>
+    <div className='admin-content-text my-3'> تفاصيل الطلب رقم# </div>
 
-    <Row className="justify-content-center mt-4 user-data">
+    {
+      order?.cartItems?.map((product , index) => 
+        <AdminAllOrdersItem product={product} order={order} key={index}/>
+      )
+    }
+
+<Row>
+<div>
+                        <div className="d-inline mx-2 stat">الحالة : </div>
+                        <div className="d-inline mx-2 stat">  {order?.isDelivered ? "تم التوصيل" : "لم يتم التوصيل"}</div>
+                    </div>
+
+                    <div>
+                    <div className="d-inline mx-2 stat">حالة الدفع : </div>
+                        <div className="d-inline mx-2 stat">  {order?.isPaid ? "تم الدفع" : "لم يتم الدفع"}</div>
+                    </div>
+
+                    <div>
+                    <div className="d-inline mx-2 stat">حالة الدفع : </div>
+                        <div className="d-inline mx-2 stat">  {order?.paymentMethodType === "cash" ? " كاش" : "  بطاقة إئتمان"}</div>
+                    </div>
+</Row>
+    <Row className="justify-content-center mt-4 user-data w-75"
+    style={{height: "fit-content"}}>
         <Col xs="12" className=" d-flex">
-            <div className="admin-content-text py-2">تفاصيل العميل</div>
+            {/* <div className="admin-content-text py-2">تفاصيل العميل</div> */}
         </Col>
-        <Col xs="12" className="d-flex">
+        <Col xs="12" className="d-flex p-2">
             <div
                 style={{
                     color: "#555550",
@@ -31,11 +59,11 @@ const AdminOrdersDetails = () => {
                     fontSize: "16px",
                 }}
                 className="mx-2">
-                احمد عبداللة
+              {user?.name}
             </div>
         </Col>
 
-        <Col xs="12" className="d-flex">
+        {/* <Col xs="12" className="d-flex">
             <div
                 style={{
                     color: "#555550",
@@ -52,7 +80,7 @@ const AdminOrdersDetails = () => {
                     fontSize: "16px",
                 }}
                 className="mx-2">
-                0021313432423
+              {user?.phone}
             </div>
         </Col>
         <Col xs="12" className="d-flex">
@@ -72,26 +100,18 @@ const AdminOrdersDetails = () => {
                     fontSize: "16px",
                 }}
                 className="mx-2">
-                ahmed@gmail.com
+                {user?.email}
             </div>
-        </Col>
-        <div className=" d-inline px-4 border text-center pt-2">
-            المجموع ٤٠٠٠ جنيه
-        </div>
-        <div className="d-flex mt-2 justify-content-center">
-            <select
-                name="languages"
-                id="lang"
-                className="select input-form-area mt-1  text-center px-2 w-50">
-                <option value="val">حالة الطلب</option>
-                <option value="val2">قيد التنفيذ</option>
-                <option value="val2">تم الانتهاء</option>
-                <option value="val2">الغاء</option>
-            </select>
-            <button className="btn-a px-3 d-inline mx-2 ">حفظ </button>
+        </Col> */}
+        <div className=" d-inline border text-center  text-dark fw-bold p-2 "
+        style={{textDecoration : "none"}}
+        >
+            المجموع {total} جنيه
         </div>
     </Row>
 </div>
+    </Link>
+
   )
 }
 

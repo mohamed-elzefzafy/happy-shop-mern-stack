@@ -79,9 +79,10 @@ useEffect(() => {
       if(res.status && res.status === 201)
       {
         toast.success("تم التقييم بنجاح");
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 1000);
+        setRateText("");
       }
     }
 

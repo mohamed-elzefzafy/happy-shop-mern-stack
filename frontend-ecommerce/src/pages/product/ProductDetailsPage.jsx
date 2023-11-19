@@ -4,9 +4,6 @@ import ProductDetails from "../../components/products/ProductDetails";
 import RateContainer from './../../components/rating/RateContainer';
 import CardProductContainer from "../../components/products/CardProductContainer";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { getProductLike } from "../../redux/actions/productAction";
 import UseProductDetailHook from "../../customHooks/product/UseProductDetailHook";
 
 

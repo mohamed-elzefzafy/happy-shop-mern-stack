@@ -4,17 +4,14 @@ import login from "../../images/login.png"
 import cart from "../../images/cart.png";
 import { Link, useNavigate } from "react-router-dom";
 import UseNavbarSearchHook from "../../customHooks/search/UseNavbarSearchHook";
-import { useEffect, useState } from "react";
-import { getLoggedUser } from "../../redux/actions/authAction";
-import { useDispatch, useSelector } from "react-redux";
 import UseGetLoggedUserData from "../../customHooks/auth/UseGetLoggedUserData";
+import UseLoggedUserCartProducts from "../../customHooks/UseLoggedUserCartProducts";
 
 
 const NavBarLogin = () => {
 const [searchWord , onChangeSearch ] = UseNavbarSearchHook();
 const navigate = useNavigate();
-// const [user, setUser] = useState("");
-// const dispatch = useDispatch();
+const [ allCartProducts , cartLength] = UseLoggedUserCartProducts();
 
 const [userData] = UseGetLoggedUserData();
 
@@ -25,36 +22,12 @@ else
 word = ""
 
 
-
-// useEffect(() => {
-//   if (localStorage.getItem("user") !=  null) 
-//   {
-//     setUser(JSON.parse(localStorage.getItem("user")).name)
-//   }
-// },[user])
 const logOut = () => {
   localStorage.removeItem("token");
-
-  // setTimeout(() => {
-  //   window.location.href = "/login";
-  // }, 500);
-  // localStorage.removeItem("user");
-  // setUser("");
+  localStorage.removeItem("userRole");
 }
 
-// const getUserData = async () => {
-// await dispatch(getLoggedUser());
-// }
-// useEffect(() => {
-// getUserData();
-// setUser(res?.data?.name);
-// },[user])
 
-// const res = useSelector((state) =>  state.auth.currentUser)
-// if (res)
-// console.log(res?.data?.name);
-
-console.log(userData);
 
   return (
     <Navbar className="sticky-top mastercolor nav-property" /* bg="dark" */ variant="dark"  expand="sm">
@@ -100,7 +73,7 @@ console.log(userData);
       
                     style={{ color: "white" , marginTop :"13px", marginRight : "0" , marginLeft : "10px"}}>
                     <img src={userData?.profileImage} className="" alt="sfvs" style={{width : "30px" , height : "30px" , borderRadius :"50%"}} />
-                    {/* <p style={{ color: "white" }}>{userData?.name}</p> */}
+
                 </Nav.Link>
           </>
                 )
@@ -115,9 +88,14 @@ console.log(userData);
 
 
                 <Nav.Link href='/cart'
-                    className="nav-text d-flex mt-3 justify-content-center"
+                    className="nav-text d-flex mt-3 justify-content-center position-relative ms-auto"
                     style={{ color: "white" }}>
+                    <div className="position-relative">
                     <img src={cart} className="login-img ms-1" alt="sfvs" />
+                      {cartLength ? (<span className="badge-span position-absolute bg-danger rounded-circle text-center">
+                      {cartLength}
+                      </span>) : null}
+                    </div>
                     <p style={{ color: "white" }}>العربه</p>
                 </Nav.Link>
             </Nav>
@@ -128,5 +106,4 @@ console.log(userData);
 }
 
 export default NavBarLogin;
-
 

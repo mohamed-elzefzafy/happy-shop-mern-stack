@@ -1,4 +1,4 @@
-import { FORGET_PASSWORD, GET_CURRENT_USER, LOGIN, REGISTER, RESET_PASSWORD, VERIFY_RESET_CODE, VERIFY_RESET_PASSWORD } from "../type";
+import { FORGET_PASSWORD, GET_CURRENT_USER, LOGIN, REGISTER, RESET_PASSWORD, UPDATE_LOGGED_USER_DATA, UPDATE_LOGGED_USER_PASSWORD, VERIFY_RESET_CODE, VERIFY_RESET_PASSWORD } from "../type";
 
 const inital = {
   registerUser: [],
@@ -7,7 +7,9 @@ const inital = {
   forgetPassword: [],
   verifyCode: [],
   verifyPassword: [],
-  loading: true,
+  updateLoggedUserData: [],
+  updateLoggedUserPassword: [],
+
 };
 const authReducer = (state = inital, action) => {
   switch (action.type) {
@@ -43,6 +45,19 @@ const authReducer = (state = inital, action) => {
             ...state,
             verifyPassword: action.payload,
           };
+
+          case UPDATE_LOGGED_USER_DATA:
+            return {
+              ...state,
+              updateLoggedUserData: action.payload,
+            };
+
+            case UPDATE_LOGGED_USER_PASSWORD:
+              return {
+                ...state,
+                updateLoggedUserPassword: action.payload,
+              };
+      
     
   
 

@@ -12,11 +12,17 @@ const dispatch = useDispatch();
 const getUserData = async () => {
 await dispatch(getLoggedUser());
 }
-useEffect(() => {
-getUserData();
-setUser(res?.data);
-},[user])
 
+
+try {
+  useEffect(() => {
+    getUserData();
+    setUser(res?.data);
+    },[user])
+    
+} catch (error) {
+  
+}
 
 const res = useSelector((state) =>  state.auth.currentUser);
 

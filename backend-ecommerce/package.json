@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@znemz/mongoose-auto-increment": "^5.2.1",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "compression": "^1.7.4",

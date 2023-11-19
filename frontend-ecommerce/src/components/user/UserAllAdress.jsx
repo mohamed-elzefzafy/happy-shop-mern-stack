@@ -9,15 +9,19 @@ import { getAllAddresses } from "../../redux/actions/addressAction";
 const UserAllAdress = () => {
   const dispatch = useDispatch();
 
+
+
+  const res = useSelector((state) => state.address.allAddresses)
+
   useEffect(() => {
     const getAdressesData = async() => {
   await dispatch(getAllAddresses());
     }
     getAdressesData();
 
-  },[])
+  },[res])
 
-  const res = useSelector((state) => state.address.allAddresses)
+
 
   if (res)
   console.log(res);

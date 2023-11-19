@@ -136,12 +136,17 @@ exports.updateLoggedUserValidator = [
   validatorMiddleWare,
   check("email").optional().notEmpty().withMessage("email required")
   .isEmail().withMessage("invalid email")
-  .custom((val) => 
-  UserModel.findOne({email : val}).then((useremail) => 
-    { if (useremail) {
+  .custom((val , {req}) => 
+  UserModel.findOne({email : val }).then((useremail) => {
+if (val !== req.user.email)
+{
+  if (useremail) {
     return Promise.reject(
       new ApiError("this email is already exist please login")
-    )}})),
+    )
+  }
+}
+})),
   validatorMiddleWare,
   check("password").optional().notEmpty().withMessage("password is required")
   .isLength({min : 6}).withMessage("password must be at least 6 characters"),

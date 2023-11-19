@@ -1,7 +1,7 @@
 import { useGetDataToken } from "../../Hooks/useGetData";
 import { useInsertData } from "../../Hooks/useInsertData";
 import { useUpdateData } from "../../Hooks/useUpdateData";
-import { FORGET_PASSWORD, GET_CURRENT_USER,  LOGIN, REGISTER, RESET_PASSWORD, VERIFY_RESET_CODE} from "../type";
+import { FORGET_PASSWORD, GET_CURRENT_USER,  LOGIN, REGISTER, RESET_PASSWORD, UPDATE_LOGGED_USER_DATA, UPDATE_LOGGED_USER_PASSWORD, VERIFY_RESET_CODE} from "../type";
 
 
 
@@ -106,6 +106,43 @@ const response = await useUpdateData(`/api/v1/auth/resetpassword` , data);
   } catch (error) {
      dispatch ({
       type : RESET_PASSWORD,
+      payload :error.response
+     })
+  }
+}
+
+
+
+export const updateLoggedUserData = (data) => async (dispatch) => {
+  try {
+
+const response = await useUpdateData(`/api/v1/users/updateme` , data);
+  
+    dispatch ({
+      type : UPDATE_LOGGED_USER_DATA,
+      payload : response
+    })
+  } catch (error) {
+     dispatch ({
+      type : UPDATE_LOGGED_USER_DATA,
+      payload :error.response
+     })
+  }
+}
+
+
+export const updateLoggedUserPassword = (data) => async (dispatch) => {
+  try {
+
+const response = await useUpdateData(`/api/v1/users/changemypassword` , data);
+  
+    dispatch ({
+      type : UPDATE_LOGGED_USER_PASSWORD,
+      payload : response
+    })
+  } catch (error) {
+     dispatch ({
+      type : UPDATE_LOGGED_USER_PASSWORD,
       payload :error.response
      })
   }

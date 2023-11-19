@@ -6,7 +6,7 @@ import { loginUser } from "../../redux/actions/authAction";
 import { useEffect } from "react";
 
 
-const UseLoginKook = () => {
+const UseLoginHook = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(true);
@@ -61,8 +61,9 @@ if (loading === false)
     console.log(res.data.data);
   if (res.data.token) 
   {
-  
-    localStorage.setItem("token" , res.data.token);
+  console.log(res.data);
+    localStorage.setItem("token" , res?.data?.token);
+    localStorage.setItem("userRole" , res?.data?.data?.role);
     // localStorage.setItem("user" , JSON.stringify(res.data.data));
     toast.success("تم تسجيل الدخول للمستخدم بنجاح");
     setTimeout(() => {
@@ -71,7 +72,7 @@ if (loading === false)
 
   } else {
     localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    localStorage.removeItem("userRole");
     // toast.error("الإميل أو كلمة السر غير صحيحه");
   } 
   if (res.data.message === "incorrect email or password")
@@ -89,4 +90,4 @@ if (loading === false)
 return [ email , password  , ispressed , loading ,onchangeEmail , onchangePassword , onSubmit]
 }
 
-export default UseLoginKook
+export default UseLoginHook;

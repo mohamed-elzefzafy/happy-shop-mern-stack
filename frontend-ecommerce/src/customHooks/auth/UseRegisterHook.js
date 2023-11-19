@@ -95,6 +95,7 @@ if (res)
   if(res.data.token)
   {
     localStorage.setItem("token" , res.data.token);
+    localStorage.setItem("userRole" , res?.data?.data?.role);
     toast.success("تم إنشاء حساب للمستخدم بنجاح");
   setTimeout(() => {
     navigate("/login");

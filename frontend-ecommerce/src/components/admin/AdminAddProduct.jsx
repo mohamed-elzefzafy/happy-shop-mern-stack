@@ -11,9 +11,9 @@ import UseAddProductHook from "../../customHooks/product/UseAddProductHook";
 
 const AdminAddProduct = () => {
 
-  const [images ,prodName ,CatID , prodDescription,priceBefore , priceAftr,qty ,category,options , BrandID ,brand,colors,showColor,
+  const  [images ,prodName ,CatID , prodDescription,priceBefore , priceAftr,qty ,category,options , BrandID ,brand,colors,showColor,
     colorBoxShow,onSelect , onRemove, onSelectBrand, removeColor,handleChangeComplete,handleSubmit,
-   setImages , setProdName , setProdDescription , setPriceBefore , setPriceAftr , setQty , onSelectCategory]
+   setImages , setProdName , setProdDescription , onChangePriceBefore , onChangePriceAfter , setQty , onSelectCategory]
     = UseAddProductHook();
 
   return (
@@ -51,14 +51,14 @@ const AdminAddProduct = () => {
             />
             <input
             value={priceBefore}
-              onChange={(e)=> setPriceBefore(e.target.value)}
+              onChange={onChangePriceBefore}
                 type="number"
                 className="input-form d-block mt-3 px-3"
                 placeholder="السعر قبل الخصم"
             />
             <input
             value={priceAftr}
-              onChange={(e)=> setPriceAftr(e.target.value)}
+              onChange={onChangePriceAfter}
                 type="number"
                 className="input-form d-block mt-3 px-3"
                 placeholder='السعر بعد الخصم'
@@ -96,8 +96,8 @@ const AdminAddProduct = () => {
 <select name="category" id="cat" className="select input-form-area mt-3 px-2 " value={BrandID} onChange={onSelectBrand}>
 <option value="0">إختر ماركه </option>
             {
-          brand.data ? (    brand.data.map((brand , index) =>
-              <option value={brand._id} key={index}> {brand.name}</option>
+          brand?.data ? (    brand?.data.map((brand , index) =>
+              <option value={brand?._id} key={index}> {brand?.name}</option>
               )) : null
             }
             </select>
