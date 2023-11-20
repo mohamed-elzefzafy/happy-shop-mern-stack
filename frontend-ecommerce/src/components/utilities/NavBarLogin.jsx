@@ -35,7 +35,7 @@ const logOut = () => {
     <Container>
         <Navbar.Brand>
           <Link to="/">
-          <img src={logo} className='logo' alt="Logo"/>
+          <img src={logo} className='logo rounded-circle' alt="Logo"/>
           </Link>
               
           

@@ -1,7 +1,8 @@
-import { CREATE_CASH_ORDER } from "../type";
+import { CREATE_CASH_ORDER, CREATE_CREDIT_ORDER } from "../type";
 
 const inital = {
   addCashOrder : [] ,
+  addCreditOrder : [] ,
 
 }
 const checkoutReducer = (state = inital, action) => {
@@ -13,7 +14,12 @@ case CREATE_CASH_ORDER:
     addCashOrder : action.payload ,
     }
 
-    
+    case CREATE_CREDIT_ORDER:
+  return {
+    ...state ,
+    addCreditOrder : action.payload ,
+    }
+
 
   default :
   return state;  
