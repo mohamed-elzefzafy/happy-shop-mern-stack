@@ -30,11 +30,11 @@ try {
     if (res?.data)
     {
       setFavProduct(res?.data?.map(item => item?._id));
-      console.log(favProduct);
+
     }
   }
 } catch (error) {
-  console.log(error);
+
 }
   },[loading])
 

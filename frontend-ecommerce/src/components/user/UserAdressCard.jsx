@@ -32,7 +32,6 @@ handleClose();
     {
       if (resDelete)
       {
-        console.log(resDelete);
         if (resDelete.status === "success")
         {
           toast.success("تم حذف العنوان");

@@ -18,7 +18,7 @@ const UseAddCategoryHook = () => {
 
   const onChangeName = (e) => {
       setName(e.target.value)
-      console.log(name);
+    
   }
 
   const onImageChange = (event) =>{
@@ -33,14 +33,12 @@ const UseAddCategoryHook = () => {
 
   const res = useSelector((state) => state.allCategory.category);
 
-console.log(res);
 
     const handleSubmit = async(event) =>{
       event.preventDefault();
       if (name === "" || selectedFile === null)
       {
 
-        console.log("أكمل البيانات");
         return toast.warning("أكمل البيانات");
       }
       const formData = new FormData();
@@ -61,7 +59,6 @@ useEffect(() =>{
   setImg(avatar);
   setName("");
   setSelectedFile(null);
-  console.log("finished");
   setLoading(true);
   // setTimeout(() => {
     setIsPress(false);

@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
   phone : String,
   profileImage : {
     type : String,
-    default : `${process.env.BASE_URL}/Users/userAvatar.jpeg`
+    default : "/Users/userAvatar.jpeg"
   },
   password : {
     type : String,

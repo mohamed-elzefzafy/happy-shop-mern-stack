@@ -62,7 +62,7 @@ useEffect(() => {
   {
     if (res)
     {
-      console.log(res);  
+
         if(res?.data?.errors && res?.data?.errors[0]?.msg === "you have reviewed this product before")
       {
         toast.error("تم تقييم هذا المنتج من قبل");
@@ -100,7 +100,6 @@ useEffect(() => {
     halfIcon: <i className="fa fa-star-half-alt" />,
     filledIcon: <i className="fa fa-star" />,
     onChange: newValue => {
-        console.log(`Example 2: new value is ${newValue}`);
         setRateValue(newValue);
     }
 };

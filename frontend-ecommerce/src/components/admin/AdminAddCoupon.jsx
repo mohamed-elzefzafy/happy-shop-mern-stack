@@ -67,7 +67,7 @@ const res = useSelector((state) => state.coupon.addCoupon)
 useEffect(() => {
   if (loading === false)
   {
-    console.log(res);
+  
     if (res && res?.status === 201)
     {
       toast.success("تمت إضافة الكوبون بنجاح")
@@ -91,9 +91,6 @@ setTimeout(() => {
   }
 },[loading])
 
-  console.log(couponName);
-  console.log(expireDate);
-  console.log(discountAmount);
 
 useEffect(() => {
   const getCoupons = async () => {
@@ -106,7 +103,7 @@ useEffect(() => {
 
 const allcouponsRes = useSelector((state) => state.coupon.getAllCoupons)
 if(allcouponsRes);
-console.log(allcouponsRes);
+
 
   return (
     <div>

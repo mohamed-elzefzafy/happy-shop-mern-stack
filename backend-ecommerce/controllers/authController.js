@@ -13,21 +13,21 @@ const { uploadSingleImage } = require("../middlewares/uploadImageMiddleWare");
 
 
 
-const setImageUrl = (doc) => {
-  if (doc.profileImage) {
-    const imageUrl =  `${process.env.BASE_URL}/Users/${doc.profileImage}`;
-    doc.profileImage = imageUrl;
-  }
-  if (doc.images) {
-    const imagesList = []; 
-    doc.images.forEach((image) => {
-      const imageUrl =  `${process.env.BASE_URL}/products/${image}`;
-      imagesList.push(imageUrl);
-    })
-    doc.images = imagesList;
+// const setImageUrl = (doc) => {
+//   if (doc.profileImage) {
+//     const imageUrl =  `${process.env.BASE_URL}/Users/${doc.profileImage}`;
+//     doc.profileImage = imageUrl;
+//   }
+//   if (doc.images) {
+//     const imagesList = []; 
+//     doc.images.forEach((image) => {
+//       const imageUrl =  `${process.env.BASE_URL}/products/${image}`;
+//       imagesList.push(imageUrl);
+//     })
+//     doc.images = imagesList;
     
-  }
-}
+//   }
+// }
 
 exports.uploadUserImage = uploadSingleImage("profileImage");
 
@@ -66,7 +66,7 @@ exports.registerUser = asyncHandler(async (req , res) => {
     profileImage : req.body.profileImage,  
   })
   // user.save();
-  setImageUrl(user);
+  // setImageUrl(user);
 // 1-generate token 
 const token = createToken(user._id)
 res.status(201).json({data : sanitizeUser(user) , token});

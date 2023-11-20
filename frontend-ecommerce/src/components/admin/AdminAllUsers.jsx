@@ -16,10 +16,8 @@ getAllUsers();
   const usersRes = useSelector((state) => state.allUsers.users);
 
   if (usersRes)
-  console.log(usersRes);
 
-//   let userResponse = [];
-// if(usersRes)
+
   
   return (
     <Table striped bordered hover size="sm" responsive className='text-center'>

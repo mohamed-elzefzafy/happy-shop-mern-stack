@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import UseNavbarSearchHook from "../../customHooks/search/UseNavbarSearchHook";
 import UseGetLoggedUserData from "../../customHooks/auth/UseGetLoggedUserData";
 import UseLoggedUserCartProducts from "../../customHooks/UseLoggedUserCartProducts";
+import { base_url_string } from "../../Api/constans";
 
 
 const NavBarLogin = () => {
@@ -72,7 +73,7 @@ const logOut = () => {
             <Nav.Link href='/user/profile'  
       
                     style={{ color: "white" , marginTop :"13px", marginRight : "0" , marginLeft : "10px"}}>
-                    <img src={userData?.profileImage} className="" alt="sfvs" style={{width : "30px" , height : "30px" , borderRadius :"50%"}} />
+                    <img src={`${base_url_string}${userData?.profileImage}`} className="" alt="sfvs" style={{width : "30px" , height : "30px" , borderRadius :"50%"}} />
 
                 </Nav.Link>
           </>

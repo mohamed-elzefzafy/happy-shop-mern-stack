@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 
 
 const AdminOrdersDetails = ({order , user , total}) => {
-  console.log(order?._id);
-  console.log(user);
+
   return (
     <Link
         to={`/admin/orders/${order?._id}`}

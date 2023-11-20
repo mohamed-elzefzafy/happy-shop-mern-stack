@@ -39,7 +39,6 @@ handleClose();
       if (deleteAllRes && deleteAllRes.status === "allCart Deleted successfully")
       {
         toast.success("تم حذف محتويات العربه")
-        console.log(deleteAllRes);
         setTimeout(() => {
           window.location.reload();
         }, 1500);
@@ -74,7 +73,6 @@ setLoadingCoupon(false);
       if (upplyCouponRes && upplyCouponRes.status === 200)
       {
         toast.success("تم تطبيق الكوبون")
-        console.log(upplyCouponRes);
         setTimeout(() => {
           window.location.reload();
         }, 1500);
@@ -98,10 +96,10 @@ const onHandleCheckOut = () => {
   if (allCartProducts?.cartItems?.length >= 1)
   {
     navigate("/order/paymentmethod");
-    console.log(allCartProducts);
+
   } else {
     toast.warning("لا يوجد بالعربه منتجات للشرء");
-    console.log(allCartProducts);
+  
   }
 }
 

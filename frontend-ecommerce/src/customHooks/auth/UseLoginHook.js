@@ -57,11 +57,9 @@ if (loading === false)
 {
   if (res) 
   {
-    console.log(res);
-    console.log(res.data.data);
+
   if (res.data.token) 
   {
-  console.log(res.data);
     localStorage.setItem("token" , res?.data?.token);
     localStorage.setItem("userRole" , res?.data?.data?.role);
     // localStorage.setItem("user" , JSON.stringify(res.data.data));

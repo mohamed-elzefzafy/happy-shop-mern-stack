@@ -23,8 +23,7 @@ const UserAllAdress = () => {
 
 
 
-  if (res)
-  console.log(res);
+
 let userAddresses =[];
 if (res?.data)
 {

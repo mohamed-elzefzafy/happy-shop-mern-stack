@@ -9,7 +9,7 @@ const ProductGallery = () => {
 const {id} = useParams();
 const  [item , Images , brand] = UseProductDetailHook(id);
 
-console.log(Images);
+
 const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
 const goToPreviousImage = () => {

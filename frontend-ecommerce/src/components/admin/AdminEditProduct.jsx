@@ -10,8 +10,6 @@ import UseEditProductHook from '../../customHooks/product/UseEditProductHook';
 import { ToastContainer } from 'react-toastify';
 const AdminEditProduct = () => {
   const {id} = useParams();
-  console.log(id);
-
 
 
   const [images ,prodName,CatID , prodDescription,priceBefore , priceAftr,qty ,category,options , BrandID ,brand,colors,showColor,

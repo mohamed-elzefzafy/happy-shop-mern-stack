@@ -11,14 +11,11 @@ import { useEffect } from "react";
 const RateContainer = ({rateAvg , rateQty}) => {
   const {id} = useParams();
   const dispatch = useDispatch();
-  // console.log(id);
   const getProductReviews = async() => {
   await dispatch(allReviewsForProduct(id , 1 , 5))
   }
 
   const res = useSelector((state) => state.review.productReviews);
-  if (res)
-  console.log(res);
 
   useEffect(() => {
     getProductReviews();

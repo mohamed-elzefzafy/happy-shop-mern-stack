@@ -11,7 +11,6 @@ const ProductDetailsPage = () => {
   const {id} = useParams();
 const [item , images , brand , likeProductArr] = UseProductDetailHook(id);
 
-console.log(item);
 
 let rateAvg , rateQty;
 if (item) {

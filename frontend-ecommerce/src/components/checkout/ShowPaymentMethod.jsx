@@ -21,7 +21,6 @@ const ShowPaymentMethod = () => {
   const [  ,  ,  ,  ,  , cartId]
   = UseLoggedUserCartProducts();
 
-// console.log(cartId);
   const res = useSelector((state) => state.address.allAddresses)
 
   useEffect(() => {
@@ -79,8 +78,7 @@ useEffect(() => {
   }
 },[loadingSpecificAddress])
 
-// if(addressDetails)
-// console.log(addressDetails);
+
 
 
 const onCreateCashOrder = async() => {
@@ -114,7 +112,6 @@ const cashOrderRes = useSelector((state) => state.order.addCashOrder);
 useEffect(() => {
 if (loadingOrder === false)
 {
-  console.log(cashOrderRes);
   if (cashOrderRes && cashOrderRes.status === 201)
   {
     toast.success("تم إنشاء طلبك بنجاح");

@@ -23,8 +23,7 @@ await dispatch(getSpecificOrder(id));
 
   const res = useSelector((state) => state.completeOrders.oneOrder);
 
-  if (res)
-  console.log(res?.data);
+
 
 const onSelectOrderToPaid =  (e) => {
   setPaidCase(e.target.value);
@@ -39,8 +38,7 @@ setLoadingPaid(false);
 }
 
 const resPaidCase = useSelector((state) => state.completeOrders.updateOrderPaid);
-if (resPaidCase)
-console.log(resPaidCase);
+
 
 useEffect(() => {
   if (loadingPaid === false)
@@ -68,8 +66,6 @@ setLoadingDeliver(false);
 
 
 const resDeliverCase = useSelector((state) => state.completeOrders.updateOrderDeliver);
-if (resDeliverCase)
-console.log(resDeliverCase);
 
 useEffect(() => {
   if (loadingDeliver === false)

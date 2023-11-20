@@ -27,7 +27,6 @@ const [addressCity, setAddressCity] = useState("");
   },[])
 
   const oneAddressRes = useSelector((state) => state.address.getOneAddress);
-console.log(oneAddressRes);
 
   useEffect(() => {
 if (loadingGet === false) 
@@ -76,7 +75,7 @@ if (loading === false)
   if(updateRes?.status === 201)
   {
     toast.success("تم التعديل بنجاح")
-    console.log(updateRes);
+  
     // setAddressName("");
     // setAddressDetail("");
     // setPhoneNumber("");

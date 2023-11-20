@@ -59,9 +59,6 @@ await dispatch(addAddress({
 
 const addAddressRes = useSelector((state) => state.address.addAddress);
 
-if (addAddressRes)
-console.log(addAddress);
-
 useEffect(() => {
   if (loading === false)
   {
@@ -73,7 +70,6 @@ useEffect(() => {
       // setAddressCity("");
 
         toast.success("تم إضافة عنوان")
-        console.log(addAddressRes);
         setTimeout(() => {
           navigate("/user/addresses")
         }, 1500);

@@ -8,7 +8,6 @@ const CartPage = () => {
   const [ allCartProducts , cartLength , totalCartPriceVar , totalCartAfterDiscount , couponName , cartId]= UseLoggedUserCartProducts();
 
 
-  console.log(totalCartAfterDiscount);
   return (
     <Container style={{minHeight : "670px"}}>
     <Row>

@@ -31,7 +31,7 @@ try {
   },[])
   
 } catch (error) {
-  console.log(error);
+  
 }
 const oneCouponRes = useSelector((state) => state.coupon.getOneCoupon);
 
@@ -64,8 +64,7 @@ if (loadingOneCoupon === false)
 
 
 
-if(oneCouponRes)
-console.log(oneCouponRes);
+
 
   const onChangeCouponName = (e) => {
     setCouponName(e.target.value);
@@ -121,7 +120,6 @@ if (typeof(discountAmount) === Number)
         if (updateCouponRes && updateCouponRes?.status === 201)
       {
         toast.success("تم تعديل الكوبون")
-        console.log(updateCouponRes); 
         // setCouponName("");
         // setExpireDate("");
         // setDiscountAmount(""); 

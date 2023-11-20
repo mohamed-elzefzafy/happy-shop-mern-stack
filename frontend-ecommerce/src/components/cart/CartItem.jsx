@@ -40,7 +40,6 @@ useEffect(() => {
     if (updateQtyProductRes && updateQtyProductRes.status === 200)
     {
       window.location.reload();
-      console.log(updateQtyProductRes);
     }
   }
 } , [loadingUpdate])
@@ -61,7 +60,6 @@ handleClose();
       if (deleteOneProductRes && deleteOneProductRes.status === "deleted successefully")
       {
         toast.success("تم حذف المنتج من العربه")
-        console.log(deleteOneProductRes);
         setTimeout(() => {
           window.location.reload();
         }, 1500);

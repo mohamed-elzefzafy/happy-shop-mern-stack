@@ -70,7 +70,6 @@ useEffect(() => {
   {
   if (res)
   {
-    console.log(res);
     if (res.data.status === "success")
     {
       toast.success("تم تعيين كلمة السر بنجاح");

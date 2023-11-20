@@ -25,8 +25,6 @@ const dispatch = useDispatch();
 
   const resDelete = useSelector((state => state.coupon.deleteCoupon))
 
-  if(resDelete)
-  console.log(resDelete);
 
   useEffect(() => {
     if(loading === false)

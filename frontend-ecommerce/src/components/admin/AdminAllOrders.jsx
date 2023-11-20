@@ -21,8 +21,7 @@ await dispatch(getAllOrders( "" , 10 ));
 
   const res = useSelector((state) => state.completeOrders.allOrders);
 
-  if (res)
-  console.log(res?.data);
+
 
   const onPress = async (page) => {
     await dispatch(getAllOrders(page ,10 ));

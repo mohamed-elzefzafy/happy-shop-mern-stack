@@ -27,7 +27,6 @@ const UseAddProductHook = () => {
 const handleChangeComplete = (color) => {
   setShowColor(!showColor)
   setColors([...colors , color.hex])
-  console.log(colors[0]);
 }
 
 const removeColor = (color) => {

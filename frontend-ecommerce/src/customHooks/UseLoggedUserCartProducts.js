@@ -25,8 +25,7 @@ useEffect(() => {
 },[])
 
 const res = useSelector((state) => state.cart.allProductsCart);
-// if(res)
-// console.log(res);
+
 
 
 useEffect(() => {
@@ -53,20 +52,6 @@ useEffect(() => {
 },[loading ])
 
 
-// let allCartProducts = [] , cartLength ;
-// if(res)
-// {
-//   allCartProducts = res?.data;
-//   cartLength = res?.result;
-// } else{
-//   allCartProducts = [];
-// cartLength = 0;
-// }
-// try {
-  
-// } catch (error) {
-//   console.log(error);
-// }
 
 
 return [ allCartProducts , cartLength , totalCartPriceVar , totalCartAfterDiscount , couponName , cartId];

@@ -37,8 +37,6 @@ const res = useSelector((state) => state.auth.forgetPassword)
 useEffect(()=> {
 if (loading === false)
 {
-  if (res)
-  console.log(res);
 if (res.data.statue === "success")
 {
   toast.success("تم إرسال كود التفعيل إلى إميلك");

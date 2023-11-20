@@ -4,7 +4,6 @@ import UserAllOrderCard from "./UserAllOrderCard";
 
 
 const UserAllOrderItem = ({order}) => {
-console.log(order);
 
 const formatDate = (dateString) => {
   const options = { year: "numeric", month: "numeric", day: "numeric" }

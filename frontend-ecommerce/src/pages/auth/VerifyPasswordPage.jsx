@@ -34,7 +34,6 @@ setLoading(false);
 if (loading === false)
 {
   if (res) {
-    console.log(res);
     if(res.data.status === "success") {
       toast.success("الكود صحيح");
       setTimeout(() => {

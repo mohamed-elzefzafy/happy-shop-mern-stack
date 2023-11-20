@@ -5,7 +5,7 @@ import { base_url_string } from '../../Api/constans';
 
 
 const AdminAllOrdersItem = ({product }) => {
-  console.log(product);
+
 
   return (
     <Col sm="12">

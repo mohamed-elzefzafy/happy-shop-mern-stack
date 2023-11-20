@@ -43,7 +43,7 @@ const SearchCountResult = ({ title }) => {
     // sortData();
     const  sortdataa =async () => {
     await  getProducts(`sort=${sort}&limit=8&keyword=${""}`);
-      console.log(sort);
+  
     }
 sortdataa();
   },[sort])

@@ -20,7 +20,6 @@ pageCount = brand.paginationResult.numberOfPage
 
 // when press pagination
 const getPage = (page) => {
-console.log(page);
 dispatch(getAllBrandPage(page))
 }
 

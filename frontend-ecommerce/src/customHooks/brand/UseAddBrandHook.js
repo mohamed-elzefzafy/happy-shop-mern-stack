@@ -16,7 +16,6 @@ const UseAddBrandHook = () => {
 
   const onChangeName = (e) => {
       setName(e.target.value)
-      console.log(name);
   }
 
   const onImageChange = (event) =>{
@@ -25,20 +24,18 @@ const UseAddBrandHook = () => {
       setImg(URL.createObjectURL(event.target.files[0]))
       setSelectedFile(event.target.files[0]);
     }
-    console.log(img);
+
     }
 
 
   const res = useSelector((state) => state.allBrand.brand);
 
-console.log(res);
 
     const handleSubmit = async(event) =>{
       event.preventDefault();
       if (name === "" || selectedFile === null)
       {
 
-        console.log("أكمل البيانات");
         return toast.warning("أكمل البيانات");
       }
       const formData = new FormData();
@@ -59,7 +56,6 @@ useEffect(() =>{
   setImg(avatar);
   setName("");
   setSelectedFile(null);
-  console.log("finished");
   setLoading(true);
 
     setIsPress(false);

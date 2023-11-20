@@ -33,7 +33,6 @@ if (res?.data)
 } else {
   userData = "";
 }
-// console.log(res?.data?.name);
 return [userData]
 }
 

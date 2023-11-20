@@ -61,7 +61,7 @@ handleClose();
       //  setTimeout(() => {
       //   window.location.reload();
       //  }, 700);
-        console.log(res);
+  
       } else {
         toast.error("يوجد خطأ");
       
@@ -121,13 +121,12 @@ if (loadingEdit === false)
     if  ( updateRes.status && updateRes.status === 201)
     {
       toast.success("تم تعديل التقييم");
-      console.log(updateRes);
       setTimeout(() => {
         window.location.reload();
       }, 1000);
     } else {
       toast.error("يوجد مشكله");
-      console.log(updateRes);
+  
     }
   }
 }
@@ -148,7 +147,6 @@ const setting = {
   halfIcon: <i className="fa fa-star-half-alt" />,
   filledIcon: <i className="fa fa-star" />,
   onChange: newValue => {
-      console.log(`Example 2: new value is ${newValue}`);
       setRateValue(newValue);
   }
 };

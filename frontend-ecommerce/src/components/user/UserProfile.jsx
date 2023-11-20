@@ -97,7 +97,7 @@ setLoading(false);
       if (updatedDataRes && updatedDataRes.status === 200)
       {
         toast.success(" تم التعديل")
-        console.log(updatedDataRes);
+    
         setTimeout(() => {
           window.location.reload();
         }, 1000);
@@ -167,7 +167,6 @@ if (loadingPass === false)
   if (updatedPassRes && updatedPassRes.status === 200)
   {
     toast.success("تم تغيير الرقم السرى ")
-    console.log(updatedPassRes);
   
     localStorage.setItem("token" , updatedPassRes.data.token);
     setPassWord("");

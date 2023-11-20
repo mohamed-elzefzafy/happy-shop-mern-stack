@@ -74,7 +74,7 @@ useEffect(() => {
 const handleChangeComplete = (color) => {
   setShowColor(!showColor)
   setColors([...colors , color.hex])
-  console.log(colors[0]);
+
 }
 
 const removeColor = (color) => {
@@ -222,7 +222,6 @@ setLoading(false);
 const product = useSelector((state) => state.allProduct.updateProduct)
 
 useEffect(()=> {
-  console.log(product);
 if (loading === false)
 {
   setCatID(item?.category?._id);
@@ -242,10 +241,8 @@ SetBrandID(0);
 if (product) {
   if(product.status === 201)
   {
-    console.log(product.status);
     toast.success("تمت التعديل بنجاح");
   } else  {
-    console.log(product.status);
     toast.error("يوجد مشكله")
   }
 }

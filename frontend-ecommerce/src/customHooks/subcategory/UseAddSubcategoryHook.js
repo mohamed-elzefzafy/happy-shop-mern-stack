@@ -23,17 +23,14 @@ const [loading, setLoading] = useState(true);
   },[])
   
   const category = useSelector((state) => state.allCategory.category);
-  // if (category)
-  console.log(category);
+
 
   const subCategory = useSelector((state) => state.allSubcategory.subcategory);
-  // if (category)
+
 
 
 const handleChange = (e) => {
 setId(e.target.value);
-console.log(id);
-console.log(e.target.value);
 } 
 
 const onChangeName = (e) => {
@@ -73,7 +70,6 @@ if (loading === false)
   setId("0");
   setName("");
   if (subCategory)
-  console.log(subCategory);
 if (subCategory.status === 201)
 {
   toast.success("تمت الإضافه بنجاح")

@@ -35,11 +35,10 @@ try {
     if (res?.data)
     {
       setFavProduct(res?.data);
-      console.log(favProduct);
+
     }
   }
 } catch (error) {
-  console.log(error);
 }
   },[loading])
 

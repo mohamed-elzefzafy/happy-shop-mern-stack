@@ -33,7 +33,6 @@ const addToCart =async () => {
       return;
     }
   }
-  console.log(item);
   setLoading(true);
 await dispatch(addProductToCart({
   productId : id,
@@ -53,10 +52,10 @@ if (addCartRes && addCartRes.status === 200)
   setTimeout(() => {
     window.location.reload();
   }, 1500);
-  console.log(addCartRes);
+
 } else {
   toast.error("لم يتم إضافة المنتج للعربه");
-  console.log(addCartRes);
+
 }
 }
 },[loading])

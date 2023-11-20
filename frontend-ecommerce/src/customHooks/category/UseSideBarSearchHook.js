@@ -55,7 +55,6 @@ if (value === "0")
   }
 }
 
-console.log(catCheck);
 }
 
 
@@ -91,7 +90,6 @@ if (value === "0")
   }
 }
 
-console.log(brandCheck);
 }
 
 

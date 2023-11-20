@@ -18,7 +18,6 @@ const UseRegisterHook = () => {
   const navigate = useNavigate();
   const onchangeName = (e) => {
 setName(e.target.value);
-console.log(name);
   }
   const onchangeEmail = (e) => {
 setEmail(e.target.value);
@@ -81,11 +80,6 @@ setPassword(e.target.value);
   }
 
   const res = useSelector((state) => state.auth.registerUser)
-
-  if (res)
-  console.log(res);
-  console.log(res.data);
-// 
 
 useEffect(() => {
 if (loading === false)

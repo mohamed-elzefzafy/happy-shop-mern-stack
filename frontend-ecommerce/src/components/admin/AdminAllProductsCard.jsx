@@ -20,7 +20,6 @@ const dispatch = useDispatch();
 
 
   const handleDelete =async()=> {
-console.log(product?._id);
     setLoading(true)
 await dispatch(deleteProduct(product?._id))
 setLoading(false)
@@ -30,16 +29,6 @@ setTimeout(() => {
   window.location.reload();
 }, 1500);
   }
-
-//   const deletedProduct = useSelector((state) => state.allProduct.deleteProduct)
-//   if(deletedProduct)
-//   console.log(deletedProduct);
-
-
-// useEffect(() => {
-//   if(deletedProduct)
-//   console.log(deletedProduct);
-// },[loading])
 
 
   return (

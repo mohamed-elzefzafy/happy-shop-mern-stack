@@ -5,7 +5,6 @@ import { base_url_string } from '../../Api/constans';
 import { Link } from 'react-router-dom';
 
 const UserAllOrderCard = ({product}) => {
-  console.log(product);
 
   return (
     <div>

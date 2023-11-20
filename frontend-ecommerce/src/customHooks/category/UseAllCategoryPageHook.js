@@ -23,7 +23,6 @@ pageCount = category.paginationResult.numberOfPage
 
 // when press pagination
 const getPage = async(page) => {
-console.log(page);
 await dispatch(getAllCategoryPage(page))
 }
 
