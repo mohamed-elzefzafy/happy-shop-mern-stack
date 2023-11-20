@@ -8,6 +8,7 @@ import { updateLoggedUserData, updateLoggedUserPassword } from "../../redux/acti
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
+import { base_url_string } from "../../Api/constans";
 
 
 const UserProfile = () => {
@@ -24,7 +25,6 @@ const navigate = useNavigate();
   } else {
     user = ""
   }
-
 
   const [name, setName] = useState(user?.name);
   const [email, setEmail] = useState(user?.email);
@@ -295,7 +295,7 @@ if (loadingPass === false)
                     <img
                         alt=""
                         className="ms-1 mt-2"
-                        src={user?.profileImage}
+                        src={`${base_url_string}${userData?.profileImage}`}
                         height="40px"
                         width="40px"
                     />
